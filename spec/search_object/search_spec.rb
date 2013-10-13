@@ -4,7 +4,7 @@ module SearchObject
   describe Search do
     def new_search(default_scope = [], filters = {}, &block)
       search_class = Class.new do
-        include Search
+        include SearchObject.module
 
         scope { default_scope }
 
