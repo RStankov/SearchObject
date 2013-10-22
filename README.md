@@ -65,6 +65,19 @@ class MessageSearch
 end
 ```
 
+### Handling nil options
+
+```ruby
+class MessageSearch
+  include SearchObject.module
+
+  scope { Message }
+
+  # nil values returned from option blocks are ignored
+  scope :started { |scope, value| scope.started if value }
+end
+```
+
 ### Using instance method in options
 
 ```ruby
