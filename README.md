@@ -55,6 +55,8 @@ search.params(:opened => false)   # => overwrites the 'opened' option
 
 [![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.png)](https://codeclimate.com/github/RStankov/SearchObject)
 
+[![Build Status](https://secure.travis-ci.org/RStankov/SearchObject.png)](http://travis-ci.org/RStankov/SearchObject)
+
 ## Contributing
 
 1. Fork it
