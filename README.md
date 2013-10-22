@@ -51,6 +51,26 @@ search.params                     # => returns the option values
 search.params(:opened => false)   # => overwrites the 'opened' option
 ```
 
+## Tips & Tricks
+
+### Using instance method in options
+
+```ruby
+class MessageSearch
+  include SearchObject.module
+
+  scope { Message }
+
+  option :date { |scope, value| scope.by_date parse_dates(value) }
+
+  private
+
+  def parse_dates(date_string)
+    # some 'magic' method to parse dates
+  end
+end
+```
+
 ## Code Status
 
 [![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.png)](https://codeclimate.com/github/RStankov/SearchObject)

@@ -62,6 +62,22 @@ module SearchObject
       expect(search1.results).not_to eq search2.results
     end
 
+    it "can use methods from the search object" do
+      search1 = new_search [1, 2, 3], filter: 1 do
+        option :filter do |scope, value|
+          some_instance_method(scope, value)
+        end
+
+        private
+
+        def some_instance_method(scope, value)
+          scope.select { |v| v == value }
+        end
+      end
+
+      expect(search1.results).to eq [1]
+    end
+
     describe "option attributes" do
       it "access option values" do
         search = new_search [], value: 1

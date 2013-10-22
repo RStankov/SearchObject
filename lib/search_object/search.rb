@@ -28,7 +28,7 @@ module SearchObject
     private
 
     def fetch_results
-      self.class.fetch_results @filters
+      self.class.fetch_results_for self
     end
 
 
@@ -37,9 +37,9 @@ module SearchObject
         Helper.select_keys filters, @actions.keys
       end
 
-      def fetch_results(filters)
-        @defaults.merge(filters).inject(@scope.call) do |scope, (name, value)|
-          @actions[name].call scope, value
+      def fetch_results_for(search)
+        @defaults.merge(search.params).inject(@scope.call) do |scope, (name, value)|
+          search.instance_exec scope, value, &@actions[name]
         end
       end
 
