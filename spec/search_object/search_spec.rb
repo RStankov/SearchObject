@@ -20,17 +20,6 @@ module SearchObject
       search_class.new filters
     end
 
-    it "has default filter" do
-      scope = [1, 2, 3]
-      expect(scope).to receive(:where).with('value' => 1) { 'results' }
-
-      search = new_search scope, value: 1 do
-        option :value
-      end
-
-      expect(search.results).to eq 'results'
-    end
-
     it "can had its #initialize method overwritten" do
       search = new_search do
         def initialize(filters = {})
@@ -62,20 +51,33 @@ module SearchObject
       expect(search1.results).not_to eq search2.results
     end
 
-    it "can use methods from the search object" do
-      search1 = new_search [1, 2, 3], filter: 1 do
-        option :filter do |scope, value|
-          some_instance_method(scope, value)
+    describe "option" do
+      it "has default filter" do
+        scope = [1, 2, 3]
+        expect(scope).to receive(:where).with('value' => 1) { 'results' }
+
+        search = new_search scope, value: 1 do
+          option :value
         end
 
-        private
-
-        def some_instance_method(scope, value)
-          scope.select { |v| v == value }
-        end
+        expect(search.results).to eq 'results'
       end
 
-      expect(search1.results).to eq [1]
+      it "can use methods from the object" do
+        search1 = new_search [1, 2, 3], filter: 1 do
+          option :filter do |scope, value|
+            some_instance_method(scope, value)
+          end
+
+          private
+
+          def some_instance_method(scope, value)
+            scope.select { |v| v == value }
+          end
+        end
+
+        expect(search1.results).to eq [1]
+      end
     end
 
     describe "option attributes" do
