@@ -51,6 +51,10 @@ search.params                     # => returns the option values
 search.params(:opened => false)   # => overwrites the 'opened' option
 ```
 
+## Code Status
+
+[![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.png)](https://codeclimate.com/github/RStankov/SearchObject)
+
 ## Contributing
 
 1. Fork it
