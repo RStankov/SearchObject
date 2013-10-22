@@ -53,6 +53,18 @@ search.params(:opened => false)   # => overwrites the 'opened' option
 
 ## Tips & Tricks
 
+### Default search option
+
+```ruby
+class MessageSearch
+  include SearchObject.module
+
+  scope { Message }
+
+  scope :name # automaticly applies => { |scope, value| scope.where name: value }
+end
+```
+
 ### Using instance method in options
 
 ```ruby
