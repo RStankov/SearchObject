@@ -63,6 +63,17 @@ module SearchObject
         expect(search.results).to eq 'results'
       end
 
+      it "returns the scope if nil returned" do
+        scope = [1, 2, 3]
+        search = new_search scope, value: 'some' do
+          option :value do
+            nil
+          end
+        end
+
+        expect(search.results).to eq scope
+      end
+
       it "can use methods from the object" do
         search1 = new_search [1, 2, 3], filter: 1 do
           option :filter do |scope, value|

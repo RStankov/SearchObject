@@ -39,7 +39,8 @@ module SearchObject
 
       def fetch_results_for(search)
         @defaults.merge(search.params).inject(@scope.call) do |scope, (name, value)|
-          search.instance_exec scope, value, &@actions[name]
+          new_scope = search.instance_exec scope, value, &@actions[name]
+          new_scope || scope
         end
       end
 
