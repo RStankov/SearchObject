@@ -51,6 +51,38 @@ search.params                     # => returns the option values
 search.params(:opened => false)   # => overwrites the 'opened' option
 ```
 
+## Plugins
+
+```SearchObject``` support plugins, which are passed to the ```SearchObject.module``` method.
+
+Plugins can be also added as ```include SearchObject::Plugin::PluginName```. If you wan't your own plugins just add them under ```SearchObject::Plugin``` module.
+
+### Paginate plugin
+
+Really simple paginte plugin, which uses ```.limit``` and ```.offset``` methods.
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:paging)
+
+  scope { Product }
+
+  option :name
+  option :category_name
+
+  # you are required to overwrite this method
+  def per_page
+    10
+  end
+end
+
+
+search = ProductSearch.new(params[:filters], params[:page]) # page number is required argument
+search.page                                                 # => page number
+search.results                                              # => paginated page results
+
+```
+
 ## Tips & Tricks
 
 ### Passing scope as argument
