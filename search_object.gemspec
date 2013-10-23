@@ -22,4 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'rspec-mocks', '>= 2.12.3'
+  spec.add_development_dependency 'activerecord', '>= 3.0.0'
+  spec.add_development_dependency 'sqlite3'
 end
