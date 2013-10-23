@@ -111,6 +111,47 @@ class MessageSearch
 end
 ```
 
+### Overwriting methods
+
+We can have fine grained scope, by overwriting ```initialize``` method:
+
+```ruby
+class MessageSearch
+  include SearchObject.module
+
+  scope :subject
+  scope :category
+
+  def initialize(user, filters)
+    super Message.for_user(user)
+  end
+end
+```
+
+Or we can add simple pagination by overwriting both ```initialize``` and ```fetch_results``` (used for fetching results):
+
+```ruby
+class MessageSearch
+  include SearchObject.module
+
+  scope { Message }
+
+  scope :subject
+  scope :category
+
+  attr_reader :page
+
+  def initialize(filters = {}, page = 0)
+    super filters
+    @page = page
+  end
+
+  def fetch_results
+    super.paginate @page
+  end
+end
+```
+
 ## Code Status
 
 [![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.png)](https://codeclimate.com/github/RStankov/SearchObject)
