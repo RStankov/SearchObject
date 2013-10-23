@@ -5,8 +5,7 @@ module SearchObject
     describe Paging do
       def search_class
         Class.new do
-          include SearchObject.module
-          include Paging
+          include SearchObject.module(:paging)
 
           scope { Product }
 
