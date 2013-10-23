@@ -5,12 +5,12 @@ module SearchObject
       base.instance_eval do
         @defaults = {}
         @actions  = {}
-        @scope    = {}
+        @scope    = nil
       end
     end
 
-    def initialize(filters = {})
-      @filters = self.class.select_filters Helper.stringify_keys(filters)
+    def initialize(*args)
+      @scope, @filters = self.class.scope_and_filters(args)
     end
 
     def results
@@ -28,17 +28,18 @@ module SearchObject
     private
 
     def fetch_results
-      self.class.fetch_results_for self
+      self.class.fetch_results_for @scope, self
     end
 
-
     module ClassMethods
-      def select_filters(filters)
-        Helper.select_keys filters, @actions.keys
+      def scope_and_filters(args)
+        scope   = (@scope && @scope.call) || args.shift
+        filters = Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys
+        [scope, filters]
       end
 
-      def fetch_results_for(search)
-        @defaults.merge(search.params).inject(@scope.call) do |scope, (name, value)|
+      def fetch_results_for(scope, search)
+        @defaults.merge(search.params).inject(scope) do |scope, (name, value)|
           new_scope = search.instance_exec scope, value, &@actions[name]
           new_scope || scope
         end

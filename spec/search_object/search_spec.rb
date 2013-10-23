@@ -51,6 +51,25 @@ module SearchObject
       expect(search1.results).not_to eq search2.results
     end
 
+    context "no scope" do
+      def search_class
+        Class.new do
+          include SearchObject.module
+
+          option :name do
+          end
+        end
+      end
+
+      it "treats first argument as scope" do
+        expect(search_class.new('scope').results).to eq 'scope'
+      end
+
+      it "treats second argument as filters" do
+        expect(search_class.new('scope', name: 'name').params).to eq 'name' => 'name'
+      end
+    end
+
     describe "option" do
       it "has default filter" do
         scope = [1, 2, 3]

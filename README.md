@@ -53,6 +53,21 @@ search.params(:opened => false)   # => overwrites the 'opened' option
 
 ## Tips & Tricks
 
+### Passing scope as argument
+
+``` ruby
+class ProductSearch
+  include SearchObject.module
+
+  scope :name
+end
+
+# first arguments is treated as scope (if no scope option is provided)
+search = ProductSearch.new(Product.visible, params[:f])
+search.results #=> products
+```
+
+
 ### Default search option
 
 ```ruby
