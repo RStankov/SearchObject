@@ -22,7 +22,11 @@ module SearchObject
     end
 
     def params(additions = {})
-      @filters.merge Helper.stringify_keys(additions)
+      if additions.empty?
+        @filters
+      else
+        @filters.merge Helper.stringify_keys(additions)
+      end
     end
 
     private
