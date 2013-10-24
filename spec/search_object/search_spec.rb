@@ -118,9 +118,7 @@ module SearchObject
 
       it "returns default option value if option is not specified" do
         search = new_search do
-          option :value, 1 do |scope, value|
-            scope.select { |v| v == value }
-          end
+          option :value, 1
         end
         expect(search.value).to eq 1
       end
@@ -145,11 +143,7 @@ module SearchObject
           end
 
           option :odd do |scope, value|
-            if value
-              scope.find_all(&:odd?)
-            else
-              scope.find_all(&:even?)
-            end
+            scope.find_all(&:odd?) if value
           end
         end
 
@@ -218,9 +212,7 @@ module SearchObject
 
       it "ignores default options" do
         search = new_search do
-          option :value, 1 do |scope, value|
-            scope.select { |v| v == value }
-          end
+          option :value, 1
         end
         expect(search.params).to eq({})
       end
