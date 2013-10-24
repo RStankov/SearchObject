@@ -30,6 +30,14 @@ module SearchObject
         search = search_class.new({}, -1)
         expect(search.page).to eq 1
       end
+
+      it "requires overwrite of per_page" do
+        klass = Class.new do
+          include SearchObject.module(:paging)
+          scope { Product }
+        end
+        expect { klass.new.results }.to raise_error NoMethodError
+      end
     end
   end
 end
