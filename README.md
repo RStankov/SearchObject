@@ -190,6 +190,8 @@ end
 
 [![Build Status](https://secure.travis-ci.org/RStankov/SearchObject.png)](http://travis-ci.org/RStankov/SearchObject)
 
+[![Code coverage](https://coveralls.io/repos/RStankov/SearchObject/badge.png?branch=master)](https://coveralls.io/r/RStankov/SearchObject)
+
 ## Contributing
 
 1. Fork it
