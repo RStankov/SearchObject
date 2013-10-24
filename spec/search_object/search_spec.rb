@@ -189,6 +189,22 @@ module SearchObject
       end
     end
 
+    describe "#count" do
+      it "counts the number of results" do
+        expect(new_search([1,2,3], value: 1).count).to eq 1
+      end
+
+      it "can't be bypassed by plug ins" do
+        search = new_search [1,2,3] do
+          def fetch_results
+            []
+          end
+        end
+
+        expect(search.count).to eq 3
+      end
+    end
+
     describe "#params" do
       it "exports options as params" do
         search = new_search [], value: 1

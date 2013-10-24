@@ -21,6 +21,10 @@ module SearchObject
       results.any?
     end
 
+    def count
+      @count ||= _fetch_results.count
+    end
+
     def params(additions = {})
       if additions.empty?
         @filters
@@ -32,6 +36,10 @@ module SearchObject
     private
 
     def fetch_results
+      _fetch_results
+    end
+
+    def _fetch_results
       self.class.fetch_results_for @scope, self
     end
 

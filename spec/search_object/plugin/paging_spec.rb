@@ -15,6 +15,10 @@ module SearchObject
         end
       end
 
+      after do
+        Product.delete_all
+      end
+
       it "paginates results (by offset and limit)" do
         10.times { |i| Product.create name: "product_#{i}" }
         search = search_class.new({}, 1)
@@ -37,6 +41,12 @@ module SearchObject
           scope { Product }
         end
         expect { klass.new.results }.to raise_error NoMethodError
+      end
+
+      it "gives the real count" do
+        10.times { |i| Product.create name: "product_#{i}" }
+        search = search_class.new({}, 1)
+        expect(search.count).to eq 10
       end
     end
   end
