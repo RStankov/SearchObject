@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'activerecord', '>= 3.0.0'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'active_model_lint-rspec'
 end
