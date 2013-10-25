@@ -76,8 +76,7 @@ class ProductSearch
   end
 end
 
-
-search = ProductSearch.new(params[:filters], params[:page]) # page number is required argument
+search = ProductSearch.new(params[:filters], params[:page]) # page number is required
 search.page                                                 # => page number
 search.results                                              # => paginated page results
 ```
