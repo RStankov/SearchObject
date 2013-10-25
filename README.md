@@ -80,8 +80,33 @@ end
 search = ProductSearch.new(params[:filters], params[:page]) # page number is required argument
 search.page                                                 # => page number
 search.results                                              # => paginated page results
-
 ```
+
+### Model plugin
+
+Extends your search object with ActiveModel, so you can use it in rails forms
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:model)
+
+  scope { Product }
+
+  option :name
+  option :category_name
+end
+```
+
+```erb
+# in some view:
+<%= form_for ProductSearch.new do |form| %>
+  <% form.label :name %>
+  <% form.text_field :name %>
+  <% form.label :category_name %>
+  <% form.text_field :category_name %>
+<% end %>
+```
+
 
 ## Tips & Tricks
 
