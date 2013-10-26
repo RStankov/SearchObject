@@ -1,5 +1,5 @@
 module SearchObject
-  module Search
+  module Base
     def self.included(base)
       base.extend ClassMethods
       base.instance_eval do

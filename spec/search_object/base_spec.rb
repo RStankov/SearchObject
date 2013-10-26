@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module SearchObject
-  describe Search do
+  describe Base do
     def new_search(default_scope = [], filters = {}, &block)
       search_class = Class.new do
         include SearchObject.module
