@@ -226,11 +226,11 @@ module SearchObject
         expect(search.params).to eq({})
       end
 
-      it "ignores default options" do
+      it "includes default options" do
         search = new_search do
           option :value, 1
         end
-        expect(search.params).to eq({})
+        expect(search.params).to eq 'value' => 1
       end
     end
   end

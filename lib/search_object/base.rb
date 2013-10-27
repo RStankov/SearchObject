@@ -45,13 +45,14 @@ module SearchObject
 
     module ClassMethods
       def scope_and_filters(args)
-        scope   = (@scope && @scope.call) || args.shift
-        filters = Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys
-        [scope, filters]
+        scope  = (@scope && @scope.call) || args.shift
+        params = @defaults.merge(Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys)
+
+        [scope, params]
       end
 
       def fetch_results_for(scope, search)
-        @defaults.merge(search.params).inject(scope) do |scope, (name, value)|
+        search.params.inject(scope) do |scope, (name, value)|
           new_scope = search.instance_exec scope, value, &@actions[name]
           new_scope || scope
         end
@@ -67,7 +68,7 @@ module SearchObject
         @defaults[name] = default unless default.nil?
         @actions[name]  = block || ->(scope, value) { scope.where name => value }
 
-        define_method(name) { @filters.has_key?(name) ? @filters[name] : default }
+        define_method(name) { @filters[name] }
       end
     end
   end
