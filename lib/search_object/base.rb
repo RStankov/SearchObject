@@ -10,7 +10,7 @@ module SearchObject
     end
 
     def initialize(*args)
-      @scope, @filters = self.class.scope_and_filters(args)
+      @search = self.class.search args
     end
 
     def results
@@ -22,40 +22,29 @@ module SearchObject
     end
 
     def count
-      @count ||= _fetch_results.count
+      @count ||= @search.count self
     end
 
     def params(additions = {})
       if additions.empty?
-        @filters
+        @search.params
       else
-        @filters.merge Helper.stringify_keys(additions)
+        @search.params.merge Helper.stringify_keys(additions)
       end
     end
 
     private
 
     def fetch_results
-      _fetch_results
-    end
-
-    def _fetch_results
-      self.class.fetch_results_for @scope, self
+      @search.query self
     end
 
     module ClassMethods
-      def scope_and_filters(args)
+      def search(args)
         scope  = (@scope && @scope.call) || args.shift
         params = @defaults.merge(Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys)
 
-        [scope, params]
-      end
-
-      def fetch_results_for(scope, search)
-        search.params.inject(scope) do |scope, (name, value)|
-          new_scope = search.instance_exec scope, value, &@actions[name]
-          new_scope || scope
-        end
+        Search.new scope, params, @actions
       end
 
       def scope(&block)
@@ -68,7 +57,7 @@ module SearchObject
         @defaults[name] = default unless default.nil?
         @actions[name]  = block || ->(scope, value) { scope.where name => value }
 
-        define_method(name) { @filters[name] }
+        define_method(name) { @search.param name }
       end
     end
   end
