@@ -179,7 +179,7 @@ class MessageSearch
   scope :category
 
   def initialize(user, filters)
-    super Message.for_user(user)
+    super Message.for_user(user), filters
   end
 end
 ```
