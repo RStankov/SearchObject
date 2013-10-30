@@ -81,6 +81,13 @@ search.page                                                 # => page number
 search.results                                              # => paginated page results
 ```
 
+Of course you want more sophisticated pagination plugins you can use:
+
+```ruby
+include SearchObject.module(:will_paginate)
+include SearchObject.module(:kaminari)
+```
+
 ### Model plugin
 
 Extends your search object with ActiveModel, so you can use it in rails forms
