@@ -1,21 +1,12 @@
 module SearchObject
   module Plugin
     module Kaminari
-      def initialize(*args)
-        @page = args.pop.to_i.abs
-        super args
-      end
+      include Paging
 
-      def page
-        @page
-      end
+      private
 
-      def per_page
-       raise NoMethodError
-      end
-
-      def fetch_results
-        super.page(@page).per(per_page)
+      def apply_paging(scope)
+        scope.page(page).per(per_page)
       end
     end
   end

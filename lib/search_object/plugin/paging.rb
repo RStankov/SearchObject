@@ -14,8 +14,14 @@ module SearchObject
        raise NoMethodError
       end
 
+      private
+
       def fetch_results
-        super.limit(@page * per_page).offset(per_page)
+        apply_paging super
+      end
+
+      def apply_paging(scope)
+        scope.limit(page * per_page).offset(per_page)
       end
     end
   end

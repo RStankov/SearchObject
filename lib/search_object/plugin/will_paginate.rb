@@ -1,21 +1,12 @@
 module SearchObject
   module Plugin
     module WillPaginate
-      def initialize(*args)
-        @page = args.pop.to_i.abs
-        super args
-      end
+      include Paging
 
-      def page
-        @page
-      end
+      private
 
-      def per_page
-       raise NoMethodError
-      end
-
-      def fetch_results
-        super.paginate per_page: per_page, :page => @page == 0 ? nil : @page
+      def apply_paging(scope)
+        scope.paginate per_page: per_page, :page => page == 0 ? nil : page
       end
     end
   end
