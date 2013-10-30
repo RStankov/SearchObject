@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'active_model_lint-rspec'
   spec.add_development_dependency 'will_paginate'
+  spec.add_development_dependency 'kaminari'
 end

@@ -5,6 +5,7 @@ require "search_object/search"
 require "search_object/plugin/model"
 require "search_object/plugin/paging"
 require "search_object/plugin/will_paginate"
+require "search_object/plugin/kaminari"
 
 module SearchObject
   def self.module(*plugins)
