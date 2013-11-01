@@ -30,6 +30,10 @@ module SearchObject
         end
       end
 
+      def reverted_sort_direction
+        sort_direction == 'desc' ? 'asc' : 'desc'
+      end
+
       private
 
       def sort_attributes

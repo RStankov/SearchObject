@@ -93,6 +93,13 @@ module SearchObject
           expect(search_class.new(sort: 'price foo').sort_direction).to eq 'desc'
         end
       end
+
+      describe "#reverted_sort_direction" do
+        it "reverts sorting direction" do
+          expect(search_class.new(sort: 'price desc').reverted_sort_direction).to eq 'asc'
+          expect(search_class.new(sort: 'price asc').reverted_sort_direction).to eq 'desc'
+        end
+      end
     end
   end
 end
