@@ -94,6 +94,20 @@ module SearchObject
         end
       end
 
+      describe "#sort_direction_for" do
+        it "returns desc if current sort attribute is not the given attribute" do
+          expect(search_class.new(sort: 'price desc').sort_direction_for('name')).to eq 'desc'
+        end
+
+        it "returns asc if current sort attribute is the given attribute" do
+          expect(search_class.new(sort: 'name desc').sort_direction_for('name')).to eq 'asc'
+        end
+
+        it "returns desc if current sort attribute is the given attribute, but asc with direction" do
+          expect(search_class.new(sort: 'name asc').sort_direction_for('name')).to eq 'desc'
+        end
+      end
+
       describe "#reverted_sort_direction" do
         it "reverts sorting direction" do
           expect(search_class.new(sort: 'price desc').reverted_sort_direction).to eq 'asc'

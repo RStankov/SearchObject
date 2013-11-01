@@ -22,6 +22,14 @@ module SearchObject
         @sort_direction ||= Helper.ensure_included sort.to_s.split(' ', 2).last, %w(desc asc)
       end
 
+      def sort_direction_for(attribute)
+        if sort_attribute == attribute
+          reverted_sort_direction
+        else
+          'desc'
+        end
+      end
+
       def reverted_sort_direction
         sort_direction == 'desc' ? 'asc' : 'desc'
       end
