@@ -16,6 +16,14 @@ module SearchObject
         text.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       end
 
+      def ensure_included(item, collection)
+        if collection.include? item
+          item
+        else
+          collection.first
+        end
+      end
+
       def define_module(&block)
         Module.new do
           define_singleton_method :included do |base|

@@ -15,33 +15,15 @@ module SearchObject
       end
 
       def sort_attribute
-        @sort_attribute ||= begin
-          attribute = sort.to_s.split(' ', 2).first
-          attribute = sort_attributes.first unless sort_attributes.include? attribute
-          attribute
-        end
+        @sort_attribute ||= Helper.ensure_included sort.to_s.split(' ', 2).first, self.class.sort_attributes
       end
 
       def sort_direction
-        @sort_direction ||= begin
-          direction = sort.to_s.split(' ', 2).last
-          direction = sort_directions.first unless sort_directions.include? direction
-          direction
-        end
+        @sort_direction ||= Helper.ensure_included sort.to_s.split(' ', 2).last, %w(desc asc)
       end
 
       def reverted_sort_direction
         sort_direction == 'desc' ? 'asc' : 'desc'
-      end
-
-      private
-
-      def sort_attributes
-        self.class.sort_attributes
-      end
-
-      def sort_directions
-        %w(desc asc)
       end
 
       module ClassMethods
