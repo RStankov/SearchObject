@@ -9,7 +9,7 @@ ActiveRecord::Schema.define do
   create_table :products, force: true do |t|
     t.string :name
     t.string :category_name
-    t.integer :price_cents
+    t.integer :price
 
     t.timestamps
   end
