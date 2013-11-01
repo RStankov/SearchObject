@@ -113,6 +113,34 @@ end
 <% end %>
 ```
 
+### Sorting plugin
+
+Fixing the pain of dealing with sorting attributes and directions.
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:sorting)
+
+  scope { Product }
+
+  sort_by :name, :price
+end
+
+search = ProductSearch.new(sort: 'price desc')
+search.results                                # => Product sorted my price DESC
+search.sort_attribute                         # => 'price'
+search.sort_direction                         # => 'desc'
+
+# Smart sort checking
+search.sort?('price')                         # => true
+search.sort?('price desc')                    # => true
+search.sort?('price asc')                     # => false
+
+# Helpers for dealing with reversing sort direction
+search.reverted_sort_direction                # => 'asc'
+search.sort_direction_for('price')            # => 'asc'
+search.sort_direction_for('name')             # => 'desc'
+```
 
 ## Tips & Tricks
 
