@@ -4,7 +4,7 @@ Post.delete_all
 users = [
   User.create!(name: 'John'),
   User.create!(name: 'Jake'),
-  User.create!(name: 'Jode'),
+  User.create!(name: 'Jade'),
 ]
 
 category_names = [
