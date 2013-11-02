@@ -11,3 +11,30 @@
  *= require_self
  *= require_tree .
  */
+
+@import "reset";
+@import "bootstrap";
+
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-size: 14px; }
+
+#search-form {
+  padding: 40px;
+  width: 100%;
+  min-width: 900px;
+
+  h1 { font-weight: 500; font-size: 36px; margin-bottom: 20px; }
+
+  input[type="search"],
+  input[type="date"],
+  input[type="text"] { color: #555555; border: 1px solid #cccccc; border-radius: 4px; font-size: 14px; }
+
+  fieldset { margin-bottom: 20px; padding: 10px; border: 1px solid #e7e7e7; border-radius: 4px; background-color: #f8f8f8; }
+  fieldset input[type="submit"] { @extend .btn; @extend .btn-default; }
+  fieldset input[type="search"],
+  fieldset input[type="date"] { vertical-align: middle; height: 34px; padding: 6px 12px; margin-right: 10px; }
+
+  table thead label { color: #428bca; }
+  table thead .active { font-weight: bold; color: black; }
+  table thead input[type="text"] { padding: 0 6px; width: 99%; }
+  table tbody .empty { text-align: center; }
+}

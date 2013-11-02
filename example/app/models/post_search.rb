@@ -31,7 +31,7 @@ class PostSearch
   end
 
   def per_page
-    25
+    15
   end
 
   private

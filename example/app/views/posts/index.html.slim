@@ -1,29 +1,25 @@
-h1 Posts (#{@search.count})
-
-
-= form_for @search, as: :f, method: :get, url: root_path do |form|
+= form_for @search, as: :f, method: :get, url: root_path, html: {id: 'search-form'} do |form|
   = form.hidden_field :sort
 
-  = form.label :term, 'Search: '
-  = form.search_field :term
+  h1 Listing #{pluralize @search.count, 'post'}
 
-  = form.label :created_after, 'Created between: '
-  = date_field_tag 'f[created_after]', @search.created_after
-  = date_field_tag 'f[created_before]', @search.created_before
+  fieldset
+    = form.search_field :term, placeholder: 'Search term'
+    = date_field_tag 'f[created_after]', @search.created_after
+    = date_field_tag 'f[created_before]', @search.created_before
+    = form.submit 'Search'
 
-  = form.submit 'Filter'
-
-  table
+  table.table.table-striped
     thead
       tr
         th = form.label :title, 'Title'
         th = form.label :user_id, 'Author'
         th = form.label :category_name, 'Category'
-        th = link_to 'Views', root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for('views_count')}"))
-        th = link_to 'Likes', root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for('likes_count')}"))
-        th = link_to 'Comments', root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for('comments_count')}"))
+        th = link_to 'Views', root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for('views_count')}")), class: @search.sort?('views_count') && 'active'
+        th = link_to 'Likes', root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for('likes_count')}")), class: @search.sort?('likes_count') && 'active'
+        th = link_to 'Comments', root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for('comments_count')}")), class: @search.sort?('comments_count') && 'active'
         th = form.label :published, 'Published?'
-        th = link_to 'Created at', root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for('created_at')}"))
+        th = link_to 'Created at', root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for('created_at')}")), class: @search.sort?('created_at') && 'active'
       tr
         th = form.text_field :title
         th = form.select :user_id, User.all.map { |u| [u.name, u.id] }, include_blank: true
@@ -32,6 +28,7 @@ h1 Posts (#{@search.count})
         th
         th
         th = form.check_box :published
+        th
     tbody
       - if @search.results?
         - @search.results.each do |post|
@@ -46,6 +43,6 @@ h1 Posts (#{@search.count})
             td = l post.created_at, format: :short
       - else
         tr
-          td colspan="8" No posts found
+          td.empty colspan="8" No posts found
 
-= will_paginate @search.results
+  .pull-right = will_paginate @search.results, renderer: BootstrapPagination::Rails
