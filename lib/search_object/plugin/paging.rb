@@ -3,7 +3,7 @@ module SearchObject
     module Paging
       def initialize(*args)
         @page = args.pop.to_i.abs
-        super args
+        super *args
       end
 
       def page
