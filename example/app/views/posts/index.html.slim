@@ -6,11 +6,11 @@ table
       th Title
       th Author
       th Category
-      th Views
-      th Likes
-      th Comments
+      th = link_to "Views", root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for("views_count")}"))
+      th = link_to "Likes", root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for("likes_count")}"))
+      th = link_to "Comments", root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for("comments_count")}"))
       th Published?
-      th Publication date
+      th = link_to "Created at", root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for("created_at")}"))
   tbody
     - @search.results.each do |post|
       tr
