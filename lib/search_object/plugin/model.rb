@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module SearchObject
   module Plugin
     module Model
