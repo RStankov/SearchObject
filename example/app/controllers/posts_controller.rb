@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
   def index
-    @search = PostSearch.new
+    @search = PostSearch.new params[:f]
   end
 end
