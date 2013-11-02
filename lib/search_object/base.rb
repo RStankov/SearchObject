@@ -55,7 +55,7 @@ module SearchObject
         name = name.to_s
 
         @defaults[name] = default unless default.nil?
-        @actions[name]  = block || ->(scope, value) { scope.where name => value }
+        @actions[name]  = block || ->(scope, value) { scope.where name => value unless value.blank? }
 
         define_method(name) { @search.param name }
       end
