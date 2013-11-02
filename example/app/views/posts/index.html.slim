@@ -1,1 +1,26 @@
 h1 Posts
+
+
+table
+  thead
+    tr
+      th Title
+      th Author
+      th Category
+      th Views
+      th Likes
+      th Comments
+      th Published?
+      th Publication date
+  tbody
+    - @posts.each do |post|
+      tr
+        td = post.title
+        td = post.user_name
+        td = post.category_name
+        td = post.views_count
+        td = post.comments_count
+        td = post.likes_count
+        td = post.published ? 'Yes' : 'No'
+        td = l post.created_at, format: :short
+
