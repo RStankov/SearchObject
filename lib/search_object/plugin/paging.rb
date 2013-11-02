@@ -11,7 +11,7 @@ module SearchObject
       end
 
       def per_page
-       raise NoMethodError
+       raise NoMethodError.new('Please define per_page method')
       end
 
       private
