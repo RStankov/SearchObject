@@ -3,17 +3,27 @@ h1 Posts (#{@search.count})
 
 = form_for @search, as: :f, method: :get, url: root_path do |form|
   = form.hidden_field :sort
+
+  = form.label :term, 'Search: '
+  = form.search_field :term
+
+  = form.label :created_after, 'Created between: '
+  = date_field_tag 'f[created_after]', @search.created_after
+  = date_field_tag 'f[created_before]', @search.created_before
+
+  = form.submit 'Filter'
+
   table
     thead
       tr
-        th Title
-        th Author
-        th Category
-        th = link_to "Views", root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for("views_count")}"))
-        th = link_to "Likes", root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for("likes_count")}"))
-        th = link_to "Comments", root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for("comments_count")}"))
-        th Published?
-        th = link_to "Created at", root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for("created_at")}"))
+        th = form.label :title, 'Title'
+        th = form.label :user_id, 'Author'
+        th = form.label :category_name, 'Category'
+        th = link_to 'Views', root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for('views_count')}"))
+        th = link_to 'Likes', root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for('likes_count')}"))
+        th = link_to 'Comments', root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for('comments_count')}"))
+        th = form.label :published, 'Published?'
+        th = link_to 'Created at', root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for('created_at')}"))
       tr
         th = form.text_field :title
         th = form.select :user_id, User.all.map { |u| [u.name, u.id] }, include_blank: true
