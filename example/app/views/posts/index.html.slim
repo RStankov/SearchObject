@@ -1,5 +1,4 @@
-h1 Posts
-
+h1 Posts (#{@search.count})
 
 table
   thead
@@ -13,7 +12,7 @@ table
       th Published?
       th Publication date
   tbody
-    - @posts.each do |post|
+    - @search.results.each do |post|
       tr
         td = post.title
         td = post.user_name
