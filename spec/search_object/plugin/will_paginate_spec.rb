@@ -1,4 +1,4 @@
-require_relative '../../spec_helper_active_record'
+require 'spec_helper_active_record'
 
 require 'will_paginate'
 require 'will_paginate/active_record'

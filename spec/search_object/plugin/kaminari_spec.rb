@@ -1,4 +1,5 @@
-require_relative '../../spec_helper_active_record'
+require 'spec_helper_active_record'
+
 require_relative '../../support/kaminari_setup'
 
 module SearchObject
