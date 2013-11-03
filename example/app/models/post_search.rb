@@ -5,6 +5,8 @@ class PostSearch
 
   sort_by :created_at, :views_count, :likes_count, :comments_count
 
+  per_page 15
+
   option :user_id
   option :category_name
 
@@ -28,10 +30,6 @@ class PostSearch
   option :created_before do |scope, value|
     date = parse_date value
     scope.where('DATE(created_at) <= ?', date) if date.present?
-  end
-
-  def per_page
-    15
   end
 
   private
