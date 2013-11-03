@@ -10,6 +10,9 @@ module SearchObject
           scope { Product.all }
 
           sort_by :name, :price
+
+          option :name
+          option :price
         end
       end
 
@@ -105,6 +108,23 @@ module SearchObject
 
         it "returns desc if current sort attribute is the given attribute, but asc with direction" do
           expect(search_class.new(sort: 'name asc').sort_direction_for('name')).to eq 'desc'
+        end
+      end
+
+      describe "#sort_params_for" do
+        it "adds sort direction" do
+          search = search_class.new sort: 'name', name: 'test'
+          expect(search.sort_params_for(:price)).to eq 'sort' => 'price desc', 'name' => 'test'
+        end
+
+        it "reverses sort direction if this is the current sort attribute" do
+          search = search_class.new sort: 'name desc', name: 'test'
+          expect(search.sort_params_for(:name)).to eq 'sort' => 'name asc', 'name' => 'test'
+        end
+
+        it "accepts additional options" do
+          search = search_class.new
+          expect(search.sort_params_for(:price, name: 'value')).to eq 'sort' => 'price desc', 'name' => 'value'
         end
       end
 

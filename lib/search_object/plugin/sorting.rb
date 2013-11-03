@@ -23,11 +23,16 @@ module SearchObject
       end
 
       def sort_direction_for(attribute)
-        if sort_attribute == attribute
+        if sort_attribute == attribute.to_s
           reverted_sort_direction
         else
           'desc'
         end
+      end
+
+      def sort_params_for(attribute, options = {})
+        options['sort'] = "#{attribute} #{sort_direction_for(attribute)}"
+        params options
       end
 
       def reverted_sort_direction
