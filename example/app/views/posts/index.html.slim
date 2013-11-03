@@ -15,11 +15,11 @@
         th = form.label :title, 'Title'
         th = form.label :user_id, 'Author'
         th = form.label :category_name, 'Category'
-        th = link_to 'Views', root_path(f: @search.params(sort: "views_count #{@search.sort_direction_for('views_count')}")), class: @search.sort?('views_count') && 'active'
-        th = link_to 'Likes', root_path(f: @search.params(sort: "likes_count #{@search.sort_direction_for('likes_count')}")), class: @search.sort?('likes_count') && 'active'
-        th = link_to 'Comments', root_path(f: @search.params(sort: "comments_count #{@search.sort_direction_for('comments_count')}")), class: @search.sort?('comments_count') && 'active'
+        th = link_to 'Views', root_path(f: @search.sort_params_for(:views_count)), class: @search.sort?(:views_count) && 'active'
+        th = link_to 'Likes', root_path(f: @search.sort_params_for(:likes_count)), class: @search.sort?(:likes_count) && 'active'
+        th = link_to 'Comments', root_path(f: @search.sort_params_for(:comments_count)), class: @search.sort?(:comments_count) && 'active'
         th = form.label :published, 'Published?'
-        th = link_to 'Created at', root_path(f: @search.params(sort: "created_at #{@search.sort_direction_for('created_at')}")), class: @search.sort?('created_at') && 'active'
+        th = link_to 'Created at', root_path(f: @search.sort_params_for(:created_at)), class: @search.sort?(:created_at) && 'active'
       tr
         th = form.text_field :title
         th = form.select :user_id, User.all.map { |u| [u.name, u.id] }, include_blank: true
@@ -37,8 +37,8 @@
             td = post.user_name
             td = post.category_name
             td = post.views_count
-            td = post.comments_count
             td = post.likes_count
+            td = post.comments_count
             td = post.published ? 'Yes' : 'No'
             td = l post.created_at, format: :short
       - else
