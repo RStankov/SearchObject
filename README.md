@@ -24,7 +24,8 @@ Just include the ```SearchObject.module``` and define your search options:
 class MessageSearch
   include SearchObject.module
 
-  scope { Message }
+  # Use ```.all``` (Rails4) or ```.scoped``` (Rails3) for ActiveRecord objects
+  scope { Message.all }
 
   option :name          { |scope, value| scope.where :name => value }
   option :created_at    { |scope, dates| scope.created_between(dates)}
@@ -65,7 +66,7 @@ Really simple paginte plugin, which uses ```.limit``` and ```.offset``` methods.
 class ProductSearch
   include SearchObject.module(:paging)
 
-  scope { Product }
+  scope { Product.all }
 
   option :name
   option :category_name
@@ -96,7 +97,7 @@ Extends your search object with ActiveModel, so you can use it in rails forms
 class ProductSearch
   include SearchObject.module(:model)
 
-  scope { Product }
+  scope { Product.all }
 
   option :name
   option :category_name
@@ -121,7 +122,7 @@ Fixing the pain of dealing with sorting attributes and directions.
 class ProductSearch
   include SearchObject.module(:sorting)
 
-  scope { Product }
+  scope { Product.all }
 
   sort_by :name, :price
 end
@@ -169,7 +170,7 @@ search.results #=> products
 class MessageSearch
   include SearchObject.module
 
-  scope { Message }
+  scope { Message.all }
 
   scope :name # automaticly applies => { |scope, value| scope.where name: value }
 end
@@ -181,7 +182,7 @@ end
 class MessageSearch
   include SearchObject.module
 
-  scope { Message }
+  scope { Message.all }
 
   # nil values returned from option blocks are ignored
   scope :started { |scope, value| scope.started if value }
@@ -194,7 +195,7 @@ end
 class MessageSearch
   include SearchObject.module
 
-  scope { Message }
+  scope { Message.all }
 
   option :date { |scope, value| scope.by_date parse_dates(value) }
 
@@ -229,7 +230,7 @@ Or we can add simple pagination by overwriting both ```initialize``` and ```fetc
 class MessageSearch
   include SearchObject.module
 
-  scope { Message }
+  scope { Message.all }
 
   scope :subject
   scope :category
