@@ -3,6 +3,10 @@ module SearchObject
     module Kaminari
       include Paging
 
+      def self.included(base)
+        base.extend Paging::ClassMethods
+      end
+
       private
 
       def apply_paging(scope)
