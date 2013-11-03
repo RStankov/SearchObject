@@ -70,14 +70,14 @@ class ProductSearch
   option :name
   option :category_name
 
-  # you are required to overwrite this method
-  def per_page
-    10
-  end
+  # per page defaults to 25
+  # you can overwrite per_page method
+  per_page 10
 end
 
 search = ProductSearch.new(params[:filters], params[:page]) # page number is required
 search.page                                                 # => page number
+search.per_page                                             # => per page 10
 search.results                                              # => paginated page results
 ```
 
