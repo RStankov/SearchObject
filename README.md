@@ -140,6 +140,10 @@ search.sort?('price asc')                     # => false
 search.reverted_sort_direction                # => 'asc'
 search.sort_direction_for('price')            # => 'asc'
 search.sort_direction_for('name')             # => 'desc'
+
+# Params for sorting links
+search.sort_params_for('name')
+
 ```
 
 ## Tips & Tricks
