@@ -52,6 +52,10 @@ search.params                     # => returns the option values
 search.params(:opened => false)   # => overwrites the 'opened' option
 ```
 
+## Example
+
+You can find example of most imporatant features and plugins - [here](https://github.com/RStankov/SearchObject/tree/master/example).
+
 ## Plugins
 
 ```SearchObject``` support plugins, which are passed to the ```SearchObject.module``` method.
