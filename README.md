@@ -21,35 +21,35 @@ Or install it yourself as:
 Just include the ```SearchObject.module``` and define your search options:
 
 ```ruby
-class MessageSearch
+class PostSearch
   include SearchObject.module
 
-  # Use ```.all``` (Rails4) or ```.scoped``` (Rails3) for ActiveRecord objects
-  scope { Message.all }
+  # Use .all (Rails4) or .scoped (Rails3) for ActiveRecord objects
+  scope { Post.all }
 
-  option :name          { |scope, value| scope.where :name => value }
-  option :created_at    { |scope, dates| scope.created_between(dates)}
-  option :opened, false { |scope, value| value ? scope.unopened : scope.opened }
+  option :name             { |scope, value| scope.where name: value }
+  option :created_at       { |scope, dates| scope.created_after dates }
+  option :published, false { |scope, value| value ? scope.unopened : scope.opened }
 end
 ```
 
-Then you can just search the messages scope:
+Then you can just search the given scope:
 
 ```ruby
-search = MessageSearch.new(params[:filters])
+search = PostSearch.new(params[:filters])
 
-# accessing option values
+# accessing search options
 search.name                        # => name option
 search.created_at                  # => created at option
 
 # accessing results
-search.count                       # => number of results found
+search.count                       # => number of found results
 search.results?                    # => is there any results found
-search.results                     # => results found
+search.results                     # => found results
 
 # params for url generations
-search.params                     # => returns the option values
-search.params(:opened => false)   # => overwrites the 'opened' option
+search.params                     # => option values
+search.params opened: false       # => overwrites the 'opened' option
 ```
 
 ## Example
@@ -58,13 +58,13 @@ You can find example of most imporatant features and plugins - [here](https://gi
 
 ## Plugins
 
-```SearchObject``` support plugins, which are passed to the ```SearchObject.module``` method.
+```SearchObject``` support plugins, which are passed to ```SearchObject.module``` method.
 
-Plugins can be also added as ```include SearchObject::Plugin::PluginName```. If you wan't your own plugins just add them under ```SearchObject::Plugin``` module.
+Plugins are just plain Ruby modules, which are included with ```SearchObject.module```. They are located under ```SearchObject::Plugin``` module.
 
 ### Paginate plugin
 
-Really simple paginte plugin, which uses ```.limit``` and ```.offset``` methods.
+Really simple paginte plugin, which uses the plain ```.limit``` and ```.offset``` methods.
 
 ```ruby
 class ProductSearch
@@ -76,17 +76,17 @@ class ProductSearch
   option :category_name
 
   # per page defaults to 25
-  # you can overwrite per_page method
+  # you can also overwrite per_page method
   per_page 10
 end
 
 search = ProductSearch.new(params[:filters], params[:page]) # page number is required
 search.page                                                 # => page number
-search.per_page                                             # => per page 10
+search.per_page                                             # => per page (10)
 search.results                                              # => paginated page results
 ```
 
-Of course you want more sophisticated pagination plugins you can use:
+Of course if you want more sophisticated pagination plugins you can use:
 
 ```ruby
 include SearchObject.module(:will_paginate)
@@ -95,7 +95,7 @@ include SearchObject.module(:kaminari)
 
 ### Model plugin
 
-Extends your search object with ActiveModel, so you can use it in rails forms
+Extends your search object with ```ActiveModel```, so you can use it in rails forms.
 
 ```ruby
 class ProductSearch
@@ -168,86 +168,86 @@ search.results #=> products
 ```
 
 
-### Default search option
-
-```ruby
-class MessageSearch
-  include SearchObject.module
-
-  scope { Message.all }
-
-  scope :name # automaticly applies => { |scope, value| scope.where name: value }
-end
-```
-
 ### Handling nil options
 
 ```ruby
-class MessageSearch
+class ProductSearch
   include SearchObject.module
 
-  scope { Message.all }
+  scope { Product.all }
 
   # nil values returned from option blocks are ignored
-  scope :started { |scope, value| scope.started if value }
+  scope :sold { |scope, value| scope.sold if value }
 end
 ```
 
-### Using instance method in options
+### Default option block
 
 ```ruby
-class MessageSearch
+class ProductSearch
   include SearchObject.module
 
-  scope { Message.all }
+  scope { Product.all }
+
+  option :name # automaticly applies => { |scope, value| scope.where name: value unless value.blank? }
+end
+```
+
+### Using instance method in option blocks
+
+```ruby
+class ProductSearch
+  include SearchObject.module
+
+  scope { Product.all }
 
   option :date { |scope, value| scope.by_date parse_dates(value) }
 
   private
 
   def parse_dates(date_string)
-    # some 'magic' method to parse dates
+    # some "magic" method to parse dates
   end
 end
 ```
 
 ### Overwriting methods
 
-We can have fine grained scope, by overwriting ```initialize``` method:
+You can have fine grained scope, by overwriting ```initialize``` method:
 
 ```ruby
-class MessageSearch
+class ProductSearch
   include SearchObject.module
 
-  scope :subject
-  scope :category
+  option :name
+  option :category_name
 
   def initialize(user, filters)
-    super Message.for_user(user), filters
+    super Product.visible_to(user), filters
   end
 end
 ```
 
-Or we can add simple pagination by overwriting both ```initialize``` and ```fetch_results``` (used for fetching results):
+Or you can add simple pagination by overwriting both ```initialize``` and ```fetch_results``` (used for fetching results):
 
 ```ruby
-class MessageSearch
+class ProductSearch
   include SearchObject.module
 
-  scope { Message.all }
+  scope { Product.all }
 
-  scope :subject
-  scope :category
+  option :name
+  option :category_name
 
   attr_reader :page
 
   def initialize(filters = {}, page = 0)
     super filters
-    @page = page
+    @page = page.to_i.abc
   end
 
   def fetch_results
-    super.paginate @page
+    super.paginate page: @page
   end
 end
 ```
