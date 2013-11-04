@@ -211,6 +211,19 @@ class ProductSearch
 end
 ```
 
+### Active Record is not required at all
+
+```ruby
+class ProductSearch
+  include SearchObject.module
+
+  scope { RemoteEndpoint.fetch_product_as_hashes }
+
+  option :name     { |scope, value| scope.select { |product| product[:name] == value } }
+  option :category { |scope, value| scope.select { |product| product[:category] == value } }
+end
+```
+
 ### Overwriting methods
 
 You can have fine grained scope, by overwriting ```initialize``` method:
