@@ -1,6 +1,6 @@
 # SearchObject
 
-Provides DSL for creating search objects
+In many of my projects I've needed an object that performs several fairly complicated queries. Or, just some multi-field search forms. Most times I hand-coded them, but they would get complicated over time when other concerns were added like sorting, pagination and so on. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
 
 ## Installation
 
