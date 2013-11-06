@@ -281,3 +281,7 @@ end
 4. Push to the branch (`git push origin my-new-feature`)
 5. Run the tests (`rake`)
 6. Create new Pull Request
+
+## License
+
+**[MIT License](https://github.com/RStankov/SearchObject/blob/master/LICENSE.txt)**
