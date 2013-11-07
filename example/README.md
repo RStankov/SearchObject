@@ -7,6 +7,12 @@ This is example application showing, one of the possible usages of ```SearchObje
   * Using private method helpers in options
   * Plugins: model, sorting, will_paginate
 
+## Interesting files:
+
+  * [PostsController](https://github.com/RStankov/SearchObject/blob/master/example/app/controllers/posts_controller.rb)
+  * [PostSearch ](https://github.com/RStankov/SearchObject/blob/master/example/app/models/post_search.rb)
+  * [posts/index.html.slim](https://github.com/RStankov/SearchObject/blob/master/example/app/views/posts/index.html.slim)
+
 ## Installation
 
 ```
