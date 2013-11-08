@@ -10,8 +10,9 @@ This is example application showing, one of the possible usages of ```SearchObje
 ## Interesting files:
 
   * [PostsController](https://github.com/RStankov/SearchObject/blob/master/example/app/controllers/posts_controller.rb)
-  * [PostSearch ](https://github.com/RStankov/SearchObject/blob/master/example/app/models/post_search.rb)
+  * [PostSearch](https://github.com/RStankov/SearchObject/blob/master/example/app/models/post_search.rb)
   * [posts/index.html.slim](https://github.com/RStankov/SearchObject/blob/master/example/app/views/posts/index.html.slim)
+  * [PostSearch spec](https://github.com/RStankov/SearchObject/blob/master/example/spec/models/post_search_spec.rb)
 
 ## Installation
 
