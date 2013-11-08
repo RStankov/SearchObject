@@ -23,7 +23,7 @@ module SearchObject
           :min => ->(scope, min) { scope.select { |v| v > min } },
         }
 
-        search = Search.new [1,2,3], {:min => 2}, actions
+        search = Search.new [1,2,3], {min: 2}, actions
         expect(search.query(Object.new)).to eq [3]
       end
 
@@ -33,7 +33,7 @@ module SearchObject
           :max => ->(scope, max) { scope.select { |v| v < max } },
         }
 
-        search = Search.new [1,2,3,4,5], {:min => 2, :max => 5},  actions
+        search = Search.new [1,2,3,4,5], {min: 2, max: 5},  actions
         expect(search.query(Object.new)).to eq [3,4]
       end
 
@@ -42,7 +42,7 @@ module SearchObject
           :odd => ->(scope, odd) { scope.select(&:odd?) if odd }
         }
 
-        search = Search.new [1,2,3,4,5], {:odd => false}, actions
+        search = Search.new [1,2,3,4,5], {odd: false}, actions
         expect(search.query(Object.new)).to eq [1,2,3,4,5]
       end
 
@@ -51,9 +51,9 @@ module SearchObject
           :search => ->(scope, _) { scope.select { |v| v == target_value } }
         }
 
-        context = double :target_value => 2
+        context = double target_value: 2
 
-        search = Search.new [1,2,3,4,5], {:search => true}, actions
+        search = Search.new [1,2,3,4,5], {search: true}, actions
         expect(search.query(context)).to eq [2]
       end
     end
@@ -64,7 +64,7 @@ module SearchObject
           :value => ->(scope, value) { scope.select { |v| v == value} }
         }
 
-        search = Search.new [1,2,3], {:value => 2}, actions
+        search = Search.new [1,2,3], {value: 2}, actions
         expect(search.count(Object.new)).to eq 1
       end
     end

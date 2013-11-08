@@ -24,7 +24,7 @@ category_names = [
     user:           users.sample,
     category_name:  category_names.sample,
     title:          "Example post #{i + 1}",
-    body:           "Body text",
+    body:           'Body text',
     views_count:    rand(1000),
     likes_count:    rand(1000),
     comments_count: rand(1000),

@@ -10,7 +10,7 @@ module SearchObject
       private
 
       def apply_paging(scope)
-        scope.paginate per_page: per_page, :page => page == 0 ? nil : page
+        scope.paginate per_page: per_page, page: page == 0 ? nil : page
       end
     end
   end

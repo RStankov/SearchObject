@@ -208,12 +208,12 @@ module SearchObject
     describe "#params" do
       it "exports options as params" do
         search = new_search [], value: 1
-        expect(search.params).to eq "value" => 1
+        expect(search.params).to eq 'value' => 1
       end
 
       it "can overwrite options (mainly used for url handers)" do
         search = new_search [], value: 1
-        expect(search.params(value: 2)).to eq "value" => 2
+        expect(search.params(value: 2)).to eq 'value' => 2
       end
 
       it "ignores missing options" do
