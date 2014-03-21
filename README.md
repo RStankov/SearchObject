@@ -5,13 +5,15 @@
 
 # SearchObject
 
-In many of my projects I've needed an object that performs several fairly complicated queries. Or, just some multi-field search forms. Most times I hand-coded them, but they would get complicated over time when other concerns were added like sorting, pagination and so on. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
+In many of my projects I needed an object that performs several fairly complicated queries. Or, just some multi-field search forms. Most times I hand-coded them, but they would get complicated over time when other concerns were added like sorting, pagination and so on. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'search_object'
+```ruby
+gem 'search_object'
+```
 
 And then execute:
 
@@ -53,13 +55,13 @@ search.results?                    # => is there any results found
 search.results                     # => found results
 
 # params for url generations
-search.params                     # => option values
-search.params opened: false       # => overwrites the 'opened' option
+search.params                      # => option values
+search.params opened: false        # => overwrites the 'opened' option
 ```
 
 ## Example
 
-You can find example of most imporatant features and plugins - [here](https://github.com/RStankov/SearchObject/tree/master/example).
+You can find example of most important features and plugins - [here](https://github.com/RStankov/SearchObject/tree/master/example).
 
 ## Plugins
 
@@ -69,7 +71,7 @@ Plugins are just plain Ruby modules, which are included with ```SearchObject.mod
 
 ### Paginate plugin
 
-Really simple paginte plugin, which uses the plain ```.limit``` and ```.offset``` methods.
+Really simple paginate plugin, which uses the plain ```.limit``` and ```.offset``` methods.
 
 ```ruby
 class ProductSearch
@@ -114,7 +116,8 @@ end
 ```
 
 ```erb
-# in some view:
+<%# in some view: %>
+
 <%= form_for ProductSearch.new do |form| %>
   <% form.label :name %>
   <% form.text_field :name %>
@@ -169,7 +172,7 @@ end
 
 # first arguments is treated as scope (if no scope option is provided)
 search = ProductSearch.new(Product.visible, params[:f])
-search.results #=> products
+search.results # => products
 ```
 
 
