@@ -1,4 +1,4 @@
-Copyright (c) 2013 Radoslav Stankov
+Copyright (c) 2013-2014 Radoslav Stankov
 
 MIT License
 
