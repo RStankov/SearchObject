@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module SearchObject
   describe Base do
-    def new_search(default_scope = [], filters = {}, &block)
-      search_class = Class.new do
+    def search_class(default_scope = [], &block)
+      Class.new do
         include SearchObject.module
 
         scope { default_scope }
@@ -16,8 +16,10 @@ module SearchObject
           class_eval &block
         end
       end
+    end
 
-      search_class.new filters
+    def new_search(default_scope = [], filters = {}, &block)
+      search_class(default_scope, &block).new filters
     end
 
     it "can had its #initialize method overwritten" do
