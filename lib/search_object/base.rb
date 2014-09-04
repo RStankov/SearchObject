@@ -10,7 +10,7 @@ module SearchObject
     end
 
     def initialize(*args)
-      @search = self.class.search args
+      @search = self.class.build_internal_search args
     end
 
     def results
@@ -40,7 +40,8 @@ module SearchObject
     end
 
     module ClassMethods
-      def search(args)
+      # :api: private
+      def build_internal_search(args)
         scope  = (@scope && @scope.call) || args.shift
         params = @defaults.merge(Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys)
 
