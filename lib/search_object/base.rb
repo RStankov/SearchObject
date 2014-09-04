@@ -59,6 +59,10 @@ module SearchObject
 
         define_method(name) { @search.param name }
       end
+
+      def results(*args)
+        new(*args).results
+      end
     end
   end
 end

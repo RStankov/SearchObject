@@ -131,6 +131,13 @@ module SearchObject
       end
     end
 
+    describe ".results" do
+      it "shortcut for creating new search and immediately returning results" do
+        klass = search_class [1 ,2 ,3]
+        expect(klass.results(value: 1)).to eq [1]
+      end
+    end
+
     describe "#results" do
       it "returns only the filtered search results" do
         search = new_search [1 ,2 ,3], value: 1
