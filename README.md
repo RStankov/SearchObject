@@ -161,6 +161,14 @@ search.sort_params_for('name')
 
 ## Tips & Tricks
 
+### Results shortcut
+
+Very often you will just need results of search:
+
+```ruby
+ProductSearch.new(params).results == ProductSearch.results(param)
+```
+
 ### Passing scope as argument
 
 ``` ruby
