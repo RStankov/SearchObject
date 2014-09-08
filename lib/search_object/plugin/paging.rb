@@ -9,7 +9,7 @@ module SearchObject
 
       def initialize(options = {})
         @page     = options[:page].to_i.abs
-        @per_page = (options[:per_page] || self.class.get_per_page).to_i.abs
+        @per_page = self.class.calculate_per_page options[:per_page]
 
         super options
       end
@@ -29,8 +29,15 @@ module SearchObject
           @per_page = number.to_i.abs
         end
 
-        def get_per_page
-          @per_page ||= 25
+        def max_per_page(number)
+          @max_per_page = number.to_i.abs
+        end
+
+        # :api: private
+        def calculate_per_page(given)
+          per_page = (given || @per_page || 25).to_i.abs
+          per_page = [per_page, @max_per_page].min if @max_per_page
+          per_page
         end
       end
     end

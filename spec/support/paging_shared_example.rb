@@ -11,6 +11,8 @@ shared_examples_for "a paging plugin" do
       scope { Product }
 
       per_page 2
+
+      max_per_page 10
     end
   end
 
@@ -48,6 +50,11 @@ shared_examples_for "a paging plugin" do
     it "can be overwritten as option" do
       search = search_class.new per_page: 3
       expect(search.per_page).to eq 3
+    end
+
+    it "respects max per page" do
+      search = search_class.new per_page: 100
+      expect(search.per_page).to eq 10
     end
   end
 

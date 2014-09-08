@@ -2,7 +2,10 @@
 
 ## Version 1.0 (unreleased)
 
+* Added max_per_page for paging plugin
+
 * Default paging behaves more like 'kaminari' and 'will_paginate' by treating 1 page as 0 index (__backward incompatible__)
+
 * Raise `SearchObject::MissingScopeError` when no scope is provided
 
 * Replace position arguments with Hash of options (__backward incompatible__)
