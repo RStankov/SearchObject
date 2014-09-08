@@ -1,4 +1,5 @@
 require_relative 'spec_helper'
+require_relative 'support/paging_shared_example'
 require 'active_record'
 
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
