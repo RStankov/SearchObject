@@ -9,6 +9,12 @@
     = date_field_tag 'f[created_before]', @search.created_before
     = form.submit 'Search'
 
+    div.pull-right
+      .btn-group
+        = link_to '15', root_path(per_page: 15, f: @search.params), class: "btn btn-default#{' active' if @search.per_page == 15}"
+        = link_to '25', root_path(per_page: 25, f: @search.params), class: "btn btn-default#{' active' if @search.per_page == 25}"
+        = link_to '55', root_path(per_page: 55, f: @search.params), class: "btn btn-default#{' active' if @search.per_page == 55}"
+
   table.table.table-striped
     thead
       tr
