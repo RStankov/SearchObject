@@ -18,6 +18,15 @@ shared_examples_for "a paging plugin" do
     search_class.new page: page, per_page: per_page
   end
 
+  describe "#results" do
+    it "paginates results" do
+      4.times { |i| Product.create name: "product_#{i}" }
+      search = search_with_page 3, 1
+
+      expect(search.results.map(&:name)).to eq %w(product_2)
+    end
+  end
+
   describe "#page" do
     it "treats nil page as 0" do
       search = search_with_page nil

@@ -21,7 +21,7 @@ module SearchObject
       end
 
       def apply_paging(scope)
-        scope.limit(per_page).offset(page * per_page)
+        scope.limit(per_page).offset ([page, 1].max - 1) * per_page
       end
 
       module ClassMethods
