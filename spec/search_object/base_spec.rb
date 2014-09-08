@@ -64,12 +64,12 @@ module SearchObject
         end
       end
 
-      it "treats first argument as scope" do
+      it "accepts scope as argument" do
         expect(search_class.new(scope: 'scope').results).to eq 'scope'
       end
 
-      it "treats second argument as filters" do
-        expect(search_class.new(scope: 'scope', filters: {name: 'name'}).params).to eq 'name' => 'name'
+      it "raises an error if scope is not provided" do
+        expect { search_class.new }.to raise_error SearchObject::MissingScopeError
       end
     end
 
