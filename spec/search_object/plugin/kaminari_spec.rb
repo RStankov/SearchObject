@@ -19,30 +19,34 @@ module SearchObject
         Product.delete_all
       end
 
+      def search_with_page(page = nil)
+        search_class.new({}, page)
+      end
+
       it "paginates" do
         10.times { |i| Product.create name: "product_#{i}" }
-        search = search_class.new({}, 3)
+        search = search_with_page 3
         expect(search.results.map(&:name)).to eq %w(product_4 product_5)
       end
 
       it "uses will paginate" do
-        search = search_class.new
+        search = search_with_page
         expect(search.results.respond_to? :total_pages).to be_true
       end
 
       it "treats nil page as 0" do
-        search = search_class.new({}, nil)
+        search = search_with_page nil
         expect(search.page).to eq 0
       end
 
       it "treats negative page numbers as positive" do
-        search = search_class.new({}, -1)
+        search = search_with_page -1
         expect(search.page).to eq 1
       end
 
       it "gives the real count" do
         10.times { |i| Product.create name: "product_#{i}" }
-        search = search_class.new({}, 1)
+        search = search_with_page 1
         expect(search.count).to eq 10
       end
     end
