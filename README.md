@@ -83,11 +83,12 @@ class ProductSearch
   option :category_name
 
   # per page defaults to 25
-  # you can also overwrite per_page method
   per_page 10
+
+  max_per_page 100
 end
 
-search = ProductSearch.new filters: params[:filters], page: params[:page]
+search = ProductSearch.new filters: params[:filters], page: params[:page], per_page: params[:per_page]
 
 search.page                                                 # => page number
 search.per_page                                             # => per page (10)
