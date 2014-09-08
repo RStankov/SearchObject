@@ -27,20 +27,31 @@ module SearchObject
         expect(search.results.map(&:name)).to eq %w(product_2 product_3)
       end
 
-      it "treats nil page as 0" do
-        search = search_with_page nil
-        expect(search.page).to eq 0
+      describe "#page" do
+        it "treats nil page as 0" do
+          search = search_with_page nil
+          expect(search.page).to eq 0
+        end
+
+        it "treats negative page numbers as positive" do
+          search = search_with_page -1
+          expect(search.page).to eq 1
+        end
       end
 
-      it "treats negative page numbers as positive" do
-        search = search_with_page -1
-        expect(search.page).to eq 1
+      describe '#per_page' do
+        it "returns the class defined per page" do
+          search = search_class.new
+          expect(search.per_page).to eq 2
+        end
       end
 
-      it "gives the real count" do
-        10.times { |i| Product.create name: "product_#{i}" }
-        search = search_with_page 1
-        expect(search.count).to eq 10
+      describe "#count" do
+        it "gives the real count" do
+          10.times { |i| Product.create name: "product_#{i}" }
+          search = search_with_page 1
+          expect(search.count).to eq 10
+        end
       end
     end
   end
