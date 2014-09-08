@@ -43,7 +43,7 @@ end
 Then you can just search the given scope:
 
 ```ruby
-search = PostSearch.new(params[:filters])
+search = PostSearch.new filters: params[:filters]
 
 # accessing search options
 search.name                        # => name option
@@ -87,7 +87,8 @@ class ProductSearch
   per_page 10
 end
 
-search = ProductSearch.new(params[:filters], params[:page]) # page number is required
+search = ProductSearch.new filters: params[:filters], page: params[:page]
+
 search.page                                                 # => page number
 search.per_page                                             # => per page (10)
 search.results                                              # => paginated page results
@@ -139,7 +140,8 @@ class ProductSearch
   sort_by :name, :price
 end
 
-search = ProductSearch.new(sort: 'price desc')
+search = ProductSearch.new filters: {sort: 'price desc'}
+
 search.results                                # => Product sorted my price DESC
 search.sort_attribute                         # => 'price'
 search.sort_direction                         # => 'desc'
@@ -166,7 +168,7 @@ search.sort_params_for('name')
 Very often you will just need results of search:
 
 ```ruby
-ProductSearch.new(params).results == ProductSearch.results(param)
+ProductSearch.new(params).results == ProductSearch.results(params)
 ```
 
 ### Passing scope as argument
@@ -179,8 +181,8 @@ class ProductSearch
 end
 
 # first arguments is treated as scope (if no scope option is provided)
-search = ProductSearch.new(Product.visible, params[:f])
-search.results # => products
+search = ProductSearch.new scope: Product.visible, filters: params[:f]
+search.results # => includes only visible products
 ```
 
 
@@ -251,8 +253,8 @@ class ProductSearch
   option :name
   option :category_name
 
-  def initialize(user, filters)
-    super Product.visible_to(user), filters
+  def initialize(user, options = {})
+    super options.merge(scope: Product.visible_to(user))
   end
 end
 ```
