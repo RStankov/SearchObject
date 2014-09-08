@@ -5,19 +5,13 @@ module SearchObject
         base.extend ClassMethods
       end
 
+      attr_reader :page, :per_page
+
       def initialize(options = {})
         @page     = options[:page].to_i.abs
         @per_page = options.fetch(:per_page) { self.class.get_per_page }.to_i.abs
 
         super options
-      end
-
-      def page
-        @page
-      end
-
-      def per_page
-        @per_page
       end
 
       private
