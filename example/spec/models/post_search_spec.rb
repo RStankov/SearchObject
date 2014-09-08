@@ -18,7 +18,7 @@ describe PostSearch do
   end
 
   def expect_search(options)
-    expect(PostSearch.new(options, 0).results)
+    expect(PostSearch.new(filters: options, page: 0).results)
   end
 
   it "can search by category name" do
