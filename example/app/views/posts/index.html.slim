@@ -18,6 +18,7 @@
   table.table.table-striped
     thead
       tr
+        th = link_to 'ID', root_path(f: @search.sort_params_for(:id)), class: @search.sort?(:id) && 'active'
         th = form.label :title, 'Title'
         th = form.label :user_id, 'Author'
         th = form.label :category_name, 'Category'
@@ -27,6 +28,7 @@
         th = form.label :published, 'Published?'
         th = link_to 'Created at', root_path(f: @search.sort_params_for(:created_at)), class: @search.sort?(:created_at) && 'active'
       tr
+        th
         th = form.text_field :title
         th = form.select :user_id, User.all.map { |u| [u.name, u.id] }, include_blank: true
         th = form.select :category_name, Post.pluck('DISTINCT category_name'), include_blank: true
@@ -39,6 +41,8 @@
       - if @search.results?
         - @search.results.each do |post|
           tr
+            td width="1%"
+              span.label.label-primary ##{post.id}
             td = post.title
             td = post.user_name
             td = post.category_name

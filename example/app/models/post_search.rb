@@ -3,7 +3,7 @@ class PostSearch
 
   scope { Post.all }
 
-  sort_by :created_at, :views_count, :likes_count, :comments_count
+  sort_by :id, :created_at, :views_count, :likes_count, :comments_count
 
   per_page 15
 
