@@ -6,7 +6,9 @@ module SearchObject
       end
 
       def initialize(options = {})
-        @page = options[:page].to_i.abs
+        @page     = options[:page].to_i.abs
+        @per_page = options.fetch(:per_page) { self.class.get_per_page }.to_i.abs
+
         super options
       end
 
@@ -15,7 +17,7 @@ module SearchObject
       end
 
       def per_page
-        self.class.get_per_page
+        @per_page
       end
 
       private

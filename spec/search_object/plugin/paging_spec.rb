@@ -44,6 +44,11 @@ module SearchObject
           search = search_class.new
           expect(search.per_page).to eq 2
         end
+
+        it "can be overwritten as option" do
+          search = search_class.new per_page: 3
+          expect(search.per_page).to eq 3
+        end
       end
 
       describe "#count" do
