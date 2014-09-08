@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'active_support/core_ext/object/blank'
 
 module SearchObject
   describe Base do

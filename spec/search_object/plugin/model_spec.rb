@@ -1,5 +1,10 @@
 require 'spec_helper'
 
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/module/delegation'
+require 'active_support/concern'
+require 'active_model/conversion'
+require 'active_model/naming'
 require 'active_model/lint'
 
 module SearchObject
