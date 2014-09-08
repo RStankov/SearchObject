@@ -12,6 +12,7 @@ shared_examples_for "a paging plugin" do
 
       per_page 2
 
+      min_per_page 2
       max_per_page 10
     end
   end
@@ -22,10 +23,10 @@ shared_examples_for "a paging plugin" do
 
   describe "#results" do
     it "paginates results" do
-      4.times { |i| Product.create name: "product_#{i}" }
-      search = search_with_page 3, 1
+      6.times { |i| Product.create name: "product_#{i}" }
+      search = search_with_page 2, 2
 
-      expect(search.results.map(&:name)).to eq %w(product_2)
+      expect(search.results.map(&:name)).to eq %w(product_2 product_3)
     end
   end
 
@@ -50,6 +51,11 @@ shared_examples_for "a paging plugin" do
     it "can be overwritten as option" do
       search = search_class.new per_page: 3
       expect(search.per_page).to eq 3
+    end
+
+    it "respects min per page" do
+      search = search_class.new per_page: 1
+      expect(search.per_page).to eq 2
     end
 
     it "respects max per page" do

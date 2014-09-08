@@ -2,7 +2,7 @@
 
 ## Version 1.0 (unreleased)
 
-* Added max_per_page for paging plugin
+* Added min_per_page and max_per_page to paging plugin
 
 * Default paging behaves more like 'kaminari' and 'will_paginate' by treating 1 page as 0 index (__backward incompatible__)
 

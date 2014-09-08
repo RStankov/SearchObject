@@ -85,6 +85,8 @@ class ProductSearch
   # per page defaults to 25
   per_page 10
 
+  # range of values is also possible
+  min_per_page 5
   max_per_page 100
 end
 

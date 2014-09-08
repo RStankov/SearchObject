@@ -29,6 +29,10 @@ module SearchObject
           @per_page = number.to_i.abs
         end
 
+        def min_per_page(number)
+          @min_per_page = number.to_i.abs
+        end
+
         def max_per_page(number)
           @max_per_page = number.to_i.abs
         end
@@ -37,6 +41,7 @@ module SearchObject
         def calculate_per_page(given)
           per_page = (given || @per_page || 25).to_i.abs
           per_page = [per_page, @max_per_page].min if @max_per_page
+          per_page = [per_page, @min_per_page].max if @min_per_page
           per_page
         end
       end
