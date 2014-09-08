@@ -7,6 +7,9 @@ class PostSearch
 
   per_page 15
 
+  min_per_page 10
+  max_per_page 100
+
   option :user_id
   option :category_name
 
