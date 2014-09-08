@@ -5,9 +5,9 @@ module SearchObject
         base.extend ClassMethods
       end
 
-      def initialize(*args)
-        @page = args.pop.to_i.abs
-        super *args
+      def initialize(options = {})
+        @page = options[:page].to_i.abs
+        super options
       end
 
       def page

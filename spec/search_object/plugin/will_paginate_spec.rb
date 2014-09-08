@@ -21,7 +21,7 @@ module SearchObject
       end
 
       def search_with_page(page = nil)
-        search_class.new({}, page)
+        search_class.new page: page
       end
 
       it "paginates" do

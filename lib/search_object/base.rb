@@ -9,8 +9,8 @@ module SearchObject
       end
     end
 
-    def initialize(*args)
-      @search = self.class.build_internal_search args
+    def initialize(options = {})
+      @search = self.class.build_internal_search options
     end
 
     def results
@@ -41,9 +41,9 @@ module SearchObject
 
     module ClassMethods
       # :api: private
-      def build_internal_search(args)
-        scope  = (@scope && @scope.call) || args.shift
-        params = @defaults.merge(Helper.select_keys Helper.stringify_keys(args.shift || {}), @actions.keys)
+      def build_internal_search(options)
+        scope  = options.fetch(:scope) { @scope.call }
+        params = @defaults.merge(Helper.select_keys Helper.stringify_keys(options.fetch(:filters, {})), @actions.keys)
 
         Search.new scope, params, @actions
       end
@@ -56,7 +56,7 @@ module SearchObject
         name = name.to_s
 
         @defaults[name] = default unless default.nil?
-        @actions[name]  = block || ->(scope, value) { scope.where name => value if value }
+        @actions[name]  = block || ->(scope, value) { scope.where name => value unless value.blank? }
 
         define_method(name) { @search.param name }
       end

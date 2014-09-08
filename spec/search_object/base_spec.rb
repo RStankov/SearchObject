@@ -19,7 +19,7 @@ module SearchObject
     end
 
     def new_search(default_scope = [], filters = {}, &block)
-      search_class(default_scope, &block).new filters
+      search_class(default_scope, &block).new filters: filters
     end
 
     it "can had its #initialize method overwritten" do
@@ -64,11 +64,11 @@ module SearchObject
       end
 
       it "treats first argument as scope" do
-        expect(search_class.new('scope').results).to eq 'scope'
+        expect(search_class.new(scope: 'scope').results).to eq 'scope'
       end
 
       it "treats second argument as filters" do
-        expect(search_class.new('scope', name: 'name').params).to eq 'name' => 'name'
+        expect(search_class.new(scope: 'scope', filters: {name: 'name'}).params).to eq 'name' => 'name'
       end
     end
 
@@ -134,7 +134,7 @@ module SearchObject
     describe ".results" do
       it "shortcut for creating new search and immediately returning results" do
         klass = search_class [1 ,2 ,3]
-        expect(klass.results(value: 1)).to eq [1]
+        expect(klass.results(filters: {value: 1})).to eq [1]
       end
     end
 

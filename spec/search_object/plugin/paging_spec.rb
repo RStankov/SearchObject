@@ -17,29 +17,29 @@ module SearchObject
         Product.delete_all
       end
 
-      def new_search_with_page(page = nil)
-        search_class.new({}, page)
+      def search_with_page(page = nil)
+        search_class.new page: page
       end
 
       it "paginates results (by offset and limit)" do
         10.times { |i| Product.create name: "product_#{i}" }
-        search = new_search_with_page 1
+        search = search_with_page 1
         expect(search.results.map(&:name)).to eq %w(product_2 product_3)
       end
 
       it "treats nil page as 0" do
-        search = new_search_with_page nil
+        search = search_with_page nil
         expect(search.page).to eq 0
       end
 
       it "treats negative page numbers as positive" do
-        search = new_search_with_page -1
+        search = search_with_page -1
         expect(search.page).to eq 1
       end
 
       it "gives the real count" do
         10.times { |i| Product.create name: "product_#{i}" }
-        search = new_search_with_page 1
+        search = search_with_page 1
         expect(search.count).to eq 10
       end
     end

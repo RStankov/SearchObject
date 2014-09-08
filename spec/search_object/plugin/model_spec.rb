@@ -7,6 +7,8 @@ module SearchObject
     class ExtendedModel
       include SearchObject.module(:model)
 
+      scope { [] }
+
       # Fake errors
       # Since SearchObject is focused on plain search forms,
       # validations are not needed most of the time

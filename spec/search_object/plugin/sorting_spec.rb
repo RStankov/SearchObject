@@ -17,7 +17,7 @@ module SearchObject
       end
 
       def search_with_sort(sort = nil, filters = {})
-        search_class.new({sort: sort}.merge(filters))
+        search_class.new filters: {sort: sort}.merge(filters)
       end
 
       describe "sorting" do
