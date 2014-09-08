@@ -1,5 +1,7 @@
 # Changelog
 
+## Version 1.0 (unreleased)
+
 ## Version 0.2
 
 * Added `.results` shortcut for `new(*arg).results`
