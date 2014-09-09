@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.0 (unreleased)
+## Version 1.0
 
 * Added min_per_page and max_per_page to paging plugin
 
