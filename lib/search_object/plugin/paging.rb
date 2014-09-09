@@ -26,15 +26,18 @@ module SearchObject
 
       module ClassMethods
         def per_page(number)
-          @per_page = number.to_i.abs
+          raise InvalidNumberError.new('Per page', number) unless number > 0
+          @per_page = number
         end
 
         def min_per_page(number)
-          @min_per_page = number.to_i.abs
+          raise InvalidNumberError.new('Min per page', number) unless number > 0
+          @min_per_page = number
         end
 
         def max_per_page(number)
-          @max_per_page = number.to_i.abs
+          raise InvalidNumberError.new('Max per page', number) unless number > 0
+          @max_per_page = number
         end
 
         # :api: private

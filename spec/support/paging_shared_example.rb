@@ -3,11 +3,19 @@ shared_examples_for "a paging plugin" do
     Product.delete_all
   end
 
-  def search_class
+  def define_search_class(&block)
     plugin_name = described_class.name.demodulize.underscore.to_sym
     Class.new do
       include SearchObject.module(plugin_name)
 
+      if block_given?
+        instance_eval &block
+      end
+    end
+  end
+
+  def search_class
+    define_search_class do
       scope { Product }
 
       per_page 2
@@ -69,6 +77,36 @@ shared_examples_for "a paging plugin" do
       10.times { |i| Product.create name: "product_#{i}" }
       search = search_with_page 1
       expect(search.count).to eq 10
+    end
+  end
+
+  describe ".per_page" do
+    it "doesn't accept 0" do
+      expect { define_search_class { per_page 0 } }.to raise_error SearchObject::InvalidNumberError
+    end
+
+    it "doesn't accept negative number" do
+      expect { define_search_class { per_page -1 } }.to raise_error SearchObject::InvalidNumberError
+    end
+  end
+
+  describe ".min_per_page" do
+    it "doesn't accept 0" do
+      expect { define_search_class { min_per_page 0 } }.to raise_error SearchObject::InvalidNumberError
+    end
+
+    it "doesn't accept negative number" do
+      expect { define_search_class { min_per_page -1 } }.to raise_error SearchObject::InvalidNumberError
+    end
+  end
+
+  describe ".max_per_page" do
+    it "doesn't accept 0" do
+      expect { define_search_class { max_per_page 0 } }.to raise_error SearchObject::InvalidNumberError
+    end
+
+    it "doesn't accept negative number" do
+      expect { define_search_class { max_per_page -1 } }.to raise_error SearchObject::InvalidNumberError
     end
   end
 end
