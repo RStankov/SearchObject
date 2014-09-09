@@ -1,4 +1,5 @@
 require 'search_object/version'
+require 'search_object/errors'
 require 'search_object/helper'
 require 'search_object/base'
 require 'search_object/search'
@@ -9,12 +10,6 @@ require 'search_object/plugin/kaminari'
 require 'search_object/plugin/sorting'
 
 module SearchObject
-  class MissingScopeError < RuntimeError
-    def initialize
-      super 'No scope provided. Scope can be defined on a class level or passed as an option.'
-    end
-  end
-
   def self.module(*plugins)
     return Base if plugins.empty?
 
