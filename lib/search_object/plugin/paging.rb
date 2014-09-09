@@ -8,7 +8,7 @@ module SearchObject
       attr_reader :page, :per_page
 
       def initialize(options = {})
-        @page     = options[:page].to_i.abs
+        @page     = [options[:page].to_i, 0].max
         @per_page = self.class.calculate_per_page options[:per_page]
 
         super options

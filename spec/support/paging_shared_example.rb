@@ -38,7 +38,7 @@ shared_examples_for "a paging plugin" do
 
     it "treats negative page numbers as positive" do
       search = search_with_page -1
-      expect(search.page).to eq 1
+      expect(search.page).to eq 0
     end
   end
 
