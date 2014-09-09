@@ -43,7 +43,7 @@ module SearchObject
       # :api: private
       def build_internal_search(options)
         scope  = options.fetch(:scope) { @scope && @scope.call } or raise MissingScopeError
-        params = @defaults.merge(Helper.select_keys Helper.stringify_keys(options.fetch(:filters, {})), @actions.keys)
+        params = @defaults.merge Helper.select_keys(Helper.stringify_keys(options.fetch(:filters, {})), @actions.keys)
 
         Search.new scope, params, @actions
       end
