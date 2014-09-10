@@ -54,7 +54,7 @@ module SearchObject
       expect(search1.results).not_to eq search2.results
     end
 
-    context "no scope" do
+    context "scope" do
       def search_class
         Class.new do
           include SearchObject.module
@@ -70,6 +70,16 @@ module SearchObject
 
       it "raises an error if scope is not provided" do
         expect { search_class.new }.to raise_error SearchObject::MissingScopeError
+      end
+
+      it "can overwrite the search scope" do
+        search_class = Class.new do
+          include SearchObject.module
+
+          scope { 'scope' }
+        end
+
+        expect(search_class.new(scope: 'other scope').results).to eq 'other scope'
       end
     end
 
