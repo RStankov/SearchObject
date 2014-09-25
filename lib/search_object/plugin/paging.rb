@@ -27,24 +27,24 @@ module SearchObject
       module ClassMethods
         def per_page(number)
           raise InvalidNumberError.new('Per page', number) unless number > 0
-          @per_page = number
+          @config[:per_page] = number
         end
 
         def min_per_page(number)
           raise InvalidNumberError.new('Min per page', number) unless number > 0
-          @min_per_page = number
+          @config[:min_per_page] = number
         end
 
         def max_per_page(number)
           raise InvalidNumberError.new('Max per page', number) unless number > 0
-          @max_per_page = number
+          @config[:max_per_page] = number
         end
 
         # :api: private
         def calculate_per_page(given)
-          per_page = (given || @per_page || 25).to_i.abs
-          per_page = [per_page, @max_per_page].min if @max_per_page
-          per_page = [per_page, @min_per_page].max if @min_per_page
+          per_page = (given || @config[:per_page] || 25).to_i.abs
+          per_page = [per_page, @config[:max_per_page]].min if @config[:max_per_page]
+          per_page = [per_page, @config[:min_per_page]].max if @config[:min_per_page]
           per_page
         end
       end

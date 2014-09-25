@@ -20,6 +20,11 @@ module SearchObject
         search_class.new filters: {sort: sort}.merge(filters)
       end
 
+      it "can be inherited" do
+        child_class = Class.new(search_class)
+        expect(child_class.new.sort_attribute).to eq 'name'
+      end
+
       describe "sorting" do
         after do
           Product.delete_all

@@ -29,6 +29,11 @@ shared_examples_for "a paging plugin" do
     search_class.new page: page, per_page: per_page
   end
 
+  it "can be inherited" do
+    child_class = Class.new(search_class)
+    expect(child_class.new.per_page).to eq 2
+  end
+
   describe "#results" do
     it "paginates results" do
       6.times { |i| Product.create name: "product_#{i}" }
