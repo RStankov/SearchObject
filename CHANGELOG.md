@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 1.0.1 (Unreleased)
+
+* Search objects now can be inherited
+
+ ```ruby
+ class BaseSearch
+   include SearchObject.module
+
+   # ... options and configuration
+ end
+
+ class ProductSearch < BaseSearch
+   scope { Product }
+ end
+ ```
+
 ## Version 1.0
 
 * Added min_per_page and max_per_page to paging plugin
