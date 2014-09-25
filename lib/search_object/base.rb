@@ -40,6 +40,18 @@ module SearchObject
     end
 
     module ClassMethods
+      def inherited(base)
+        scope    = self.instance_variable_get "@scope"
+        defaults = self.instance_variable_get "@defaults"
+        actions  = self.instance_variable_get "@actions"
+
+        base.instance_eval do
+          @defaults = defaults.dup
+          @actions  = actions.dup
+          @scope    = scope ? scope.dup : nil
+        end
+      end
+
       # :api: private
       def build_internal_search(options)
         scope  = options.fetch(:scope) { @scope && @scope.call } or raise MissingScopeError

@@ -54,6 +54,16 @@ module SearchObject
       expect(search1.results).not_to eq search2.results
     end
 
+    it "can be inherited" do
+      child_class = Class.new(search_class([1, 2, 3])) do
+        option :value do |scope, value|
+          scope.select { |v| v == value }
+        end
+      end
+
+      expect(child_class.new(filters: {value: 1}).results).to eq [1]
+    end
+
     context "scope" do
       def search_class
         Class.new do
