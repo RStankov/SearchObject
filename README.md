@@ -232,6 +232,24 @@ class ProductSearch
 end
 ```
 
+### Using instance method for straight dispatch
+
+```ruby
+class ProductSearch
+  include SearchObject.module
+
+  scope { Product.all }
+
+  option :date, with: :parse_dates
+
+  private
+
+  def parse_dates(scope, value)
+    # some "magic" method to parse dates
+  end
+end
+```
+
 ### Active Record is not required at all
 
 ```ruby
