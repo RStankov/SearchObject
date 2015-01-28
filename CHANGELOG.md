@@ -16,6 +16,30 @@
  end
  ```
 
+* Using instance method for straight dispatch
+
+  ```ruby
+  class ProductSearch
+    include SearchObject.module
+
+    scope { Product.all }
+
+    option :name
+    option :category_name
+
+    attr_reader :page
+
+    def initialize(filters = {}, page = 0)
+      super filters
+      @page = page.to_i.abc
+    end
+
+    def fetch_results
+      super.paginate page: @page
+    end
+  end
+  ```
+
 ## Version 1.0
 
 * Added min_per_page and max_per_page to paging plugin
