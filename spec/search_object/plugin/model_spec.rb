@@ -41,7 +41,7 @@ module SearchObject
         expect(value).to eq(expected_value), message
       end
 
-      ActiveModel::Lint::Tests.public_instance_methods.map { |method| method.to_s }.grep(/^test/).each do |method|
+      ActiveModel::Lint::Tests.public_instance_methods.map(&:to_s).grep(/^test/).each do |method|
         example(method.gsub('_', ' ')) { send method }
       end
     end

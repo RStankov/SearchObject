@@ -1,0 +1,24 @@
+require: rubocop-rspec
+
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - example/db/**/*
+    - example/config/**/*
+    - search_object.gemspec
+
+# Disables "Line is too long"
+LineLength:
+  Enabled: false
+
+# Disables "Missing top-level class documentation comment"
+Documentation:
+  Enabled: false
+
+# Disables "Use each_with_object instead of inject"
+Style/EachWithObject:
+  Enabled: false
+
+# Disables "Prefer reduce over inject."
+Style/CollectionMethods:
+  Enabled: false

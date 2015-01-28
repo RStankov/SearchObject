@@ -4,7 +4,7 @@ module SearchObject
       def self.included(base)
         base.extend ClassMethods
         base.instance_eval do
-          option :sort do |scope, value|
+          option :sort do |scope, _|
             scope.order "#{sort_attribute} #{sort_direction}"
           end
         end

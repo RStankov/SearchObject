@@ -15,4 +15,3 @@ module SearchObject
     end
   end
 end
-

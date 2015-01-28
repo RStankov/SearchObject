@@ -6,7 +6,7 @@ module SearchObject
         @config = {
           defaults:  {},
           actions:   {},
-          scope:     nil,
+          scope:     nil
         }
       end
     end
@@ -57,7 +57,7 @@ module SearchObject
       end
 
       def option(name, options = nil, &block)
-        options = {default: options} unless options.is_a?(Hash)
+        options = { default: options } unless options.is_a?(Hash)
 
         name    = name.to_s
         default = options[:default]

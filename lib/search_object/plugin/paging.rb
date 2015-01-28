@@ -21,22 +21,22 @@ module SearchObject
       end
 
       def apply_paging(scope)
-        scope.limit(per_page).offset ([page, 1].max - 1) * per_page
+        scope.limit(per_page).offset(([page, 1].max - 1) * per_page)
       end
 
       module ClassMethods
         def per_page(number)
-          raise InvalidNumberError.new('Per page', number) unless number > 0
+          fail InvalidNumberError.new('Per page', number) unless number > 0
           config[:per_page] = number
         end
 
         def min_per_page(number)
-          raise InvalidNumberError.new('Min per page', number) unless number > 0
+          fail InvalidNumberError.new('Min per page', number) unless number > 0
           config[:min_per_page] = number
         end
 
         def max_per_page(number)
-          raise InvalidNumberError.new('Max per page', number) unless number > 0
+          fail InvalidNumberError.new('Max per page', number) unless number > 0
           config[:max_per_page] = number
         end
 

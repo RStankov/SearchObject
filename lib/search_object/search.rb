@@ -4,8 +4,11 @@ module SearchObject
 
     class << self
       def build_for(config, options)
-        scope  = options.fetch(:scope) { config[:scope] && config[:scope].call } or raise MissingScopeError
-        params = config[:defaults].merge Helper.select_keys(Helper.stringify_keys(options.fetch(:filters, {})), config[:actions].keys)
+        scope   = options.fetch(:scope) { config[:scope] && config[:scope].call }
+        filters = Helper.stringify_keys(options.fetch(:filters, {}))
+        params  = config[:defaults].merge Helper.select_keys(filters, config[:actions].keys)
+
+        fail MissingScopeError unless scope
 
         new scope, params, config[:actions]
       end
