@@ -12,7 +12,7 @@ module SearchObject
     end
 
     def initialize(options = {})
-      @search = self.class.build_internal_search options
+      @search = Search.build_for self.class.config, options
     end
 
     def results
@@ -42,6 +42,8 @@ module SearchObject
     end
 
     module ClassMethods
+      attr_reader :config
+
       def inherited(base)
         new_config = config.dup
 
@@ -50,16 +52,6 @@ module SearchObject
         end
       end
 
-      # :api: private
-      def build_internal_search(options)
-        scope  = options.fetch(:scope) { config[:scope] && config[:scope].call } or raise MissingScopeError
-        params = config[:defaults].merge Helper.select_keys(Helper.stringify_keys(options.fetch(:filters, {})), config[:actions].keys)
-
-        Search.new scope, params, config[:actions]
-      end
-
-      attr_reader :config
-
       def scope(&block)
         config[:scope] = block
       end
@@ -67,7 +59,7 @@ module SearchObject
       def option(name, options = nil, &block)
         options = {default: options} unless options.is_a?(Hash)
 
-        name = name.to_s
+        name    = name.to_s
         default = options[:default]
         handler = options[:with] || block
 
