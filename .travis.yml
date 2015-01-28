@@ -3,6 +3,8 @@ rvm:
   - 2.0
   - 2.1
   - 2.2
-script: bundle exec rspec spec
+script:
+  - bundle exec rubocop
+  - bundle exec rspec spec
 notifications:
   email: false
