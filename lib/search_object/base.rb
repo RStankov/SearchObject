@@ -60,26 +60,13 @@ module SearchObject
         handler = options[:with] || block
 
         @defaults[name] = default unless default.nil?
-        @actions[name]  = _normalize_search_object_handler(handler, name)
+        @actions[name]  = Helper.normalize_search_handler(handler, name)
 
         define_method(name) { @search.param name }
       end
 
       def results(*args)
         new(*args).results
-      end
-
-      private
-
-      def _normalize_search_object_handler(handler, name)
-        case handler
-        when Symbol
-          ->(scope, value) { method(handler).call scope, value }
-        when Proc
-          handler
-        else
-          ->(scope, value) { scope.where name => value unless value.blank? }
-        end
       end
     end
   end

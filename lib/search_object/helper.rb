@@ -31,6 +31,14 @@ module SearchObject
           end
         end
       end
+
+      def normalize_search_handler(handler, name)
+        case handler
+          when Symbol then ->(scope, value) { method(handler).call scope, value }
+          when Proc then handler
+          else ->(scope, value) { scope.where name => value unless value.blank? }
+        end
+      end
     end
   end
 end
