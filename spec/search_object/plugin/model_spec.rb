@@ -37,8 +37,8 @@ module SearchObject
         expect(object).to be_kind_of(expected_kind), message
       end
 
-      def assert_equal(expected_value, value, messsage = nil)
-        expect(value).to eq expected_value, message
+      def assert_equal(expected_value, value, message = nil)
+        expect(value).to eq(expected_value), message
       end
 
       ActiveModel::Lint::Tests.public_instance_methods.map { |method| method.to_s }.grep(/^test/).each do |method|
