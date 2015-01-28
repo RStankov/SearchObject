@@ -7,7 +7,7 @@ module SearchObject
 
       def select_keys(hash, keys)
         keys.inject({}) do |memo, key|
-          memo[key] = hash[key] if hash.has_key? key
+          memo[key] = hash[key] if hash.key? key
           memo
         end
       end

@@ -12,7 +12,7 @@ ActiveRecord::Schema.define do
     t.string :category_name
     t.integer :price
 
-    t.timestamps
+    t.timestamps null: true
   end
 end
 
