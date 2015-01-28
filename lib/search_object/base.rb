@@ -43,23 +43,25 @@ module SearchObject
 
     module ClassMethods
       def inherited(base)
-        config = self.instance_variable_get "@config"
+        new_config = config.dup
 
         base.instance_eval do
-          @config = config.dup
+          @config = new_config
         end
       end
 
       # :api: private
       def build_internal_search(options)
-        scope  = options.fetch(:scope) { @config[:scope] && @config[:scope].call } or raise MissingScopeError
-        params = @config[:defaults].merge Helper.select_keys(Helper.stringify_keys(options.fetch(:filters, {})), @config[:actions].keys)
+        scope  = options.fetch(:scope) { config[:scope] && config[:scope].call } or raise MissingScopeError
+        params = config[:defaults].merge Helper.select_keys(Helper.stringify_keys(options.fetch(:filters, {})), config[:actions].keys)
 
-        Search.new scope, params, @config[:actions]
+        Search.new scope, params, config[:actions]
       end
 
+      attr_reader :config
+
       def scope(&block)
-        @config[:scope] = block
+        config[:scope] = block
       end
 
       def option(name, options = nil, &block)
@@ -69,8 +71,8 @@ module SearchObject
         default = options[:default]
         handler = options[:with] || block
 
-        @config[:defaults][name] = default unless default.nil?
-        @config[:actions][name]  = Helper.normalize_search_handler(handler, name)
+        config[:defaults][name] = default unless default.nil?
+        config[:actions][name]  = Helper.normalize_search_handler(handler, name)
 
         define_method(name) { @search.param name }
       end
