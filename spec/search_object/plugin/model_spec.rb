@@ -30,7 +30,7 @@ module SearchObject
       end
 
       def assert(condition, message = nil)
-        expect(condition).to be_true, message
+        expect(condition).to be_truthy, message
       end
 
       def assert_kind_of(expected_kind, object, message = nil)

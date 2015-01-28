@@ -225,11 +225,11 @@ module SearchObject
 
     describe "#results?" do
       it "returns true if there are results" do
-        expect(new_search([1,2,3], value: 1).results?).to be_true
+        expect(new_search([1,2,3], value: 1).results?).to be_truthy
       end
 
       it "returns false if there aren't any results" do
-        expect(new_search([1,2,3], value: 4).results?).to be_false
+        expect(new_search([1,2,3], value: 4).results?).to be_falsey
       end
     end
 

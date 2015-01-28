@@ -54,22 +54,22 @@ module SearchObject
         it "matches the sort option" do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?(:price)).to be_true
-          expect(search.sort?(:name)).to be_false
+          expect(search.sort?(:price)).to be_truthy
+          expect(search.sort?(:name)).to be_falsey
         end
 
         it "matches string also" do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?('price')).to be_true
-          expect(search.sort?('name')).to be_false
+          expect(search.sort?('price')).to be_truthy
+          expect(search.sort?('name')).to be_falsey
         end
 
         it "matches exact strings" do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?('price desc')).to be_true
-          expect(search.sort?('price asc')).to be_false
+          expect(search.sort?('price desc')).to be_truthy
+          expect(search.sort?('price asc')).to be_falsey
         end
       end
 
