@@ -121,6 +121,20 @@ module SearchObject
 
         expect(search1.results).to eq [1]
       end
+
+      it "can dispatch with instance methods" do
+        search = new_search [1, 2, 3], filter: 1 do
+          option :filter, with: :some_instance_method
+
+          private
+
+          def some_instance_method(scope, value)
+            scope.select { |v| v == value }
+          end
+        end
+
+        expect(search.results).to eq [1]
+      end
     end
 
     describe "option attributes" do
