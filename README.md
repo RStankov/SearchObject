@@ -304,6 +304,26 @@ class ProductSearch
 end
 ```
 
+### Extracting basic module
+
+You can extarct a basic search class for your application.
+
+```ruby
+ class BaseSearch
+   include SearchObject.module
+
+   # ... options and configuration
+ end
+ ```
+
+ Then use it like:
+
+ ```ruby
+ class ProductSearch < BaseSearch
+   scope { Product }
+ end
+```
+
 ## Contributing
 
 1. Fork it
