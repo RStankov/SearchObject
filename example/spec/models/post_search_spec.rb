@@ -6,7 +6,7 @@ describe PostSearch do
   let(:user) { create_user }
 
   def create_user
-    User.create! name: 'User #{User.count + 1}'
+    User.create! name: "User #{User.count + 1}"
   end
 
   def create(attributes = {})
