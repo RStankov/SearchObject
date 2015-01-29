@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.0.1 (Unreleased)
+## Version 1.1
 
 * Search objects now can be inherited
 
