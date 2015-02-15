@@ -34,9 +34,9 @@ class PostSearch
   # Use .all (Rails4) or .scoped (Rails3) for ActiveRecord objects
   scope { Post.all }
 
-  option :name             { |scope, value| scope.where name: value }
-  option :created_at       { |scope, dates| scope.created_after dates }
-  option :published, false { |scope, value| value ? scope.unopened : scope.opened }
+  option(:name)             { |scope, value| scope.where name: value }
+  option(:created_at)       { |scope, dates| scope.created_after dates }
+  option(:published, false) { |scope, value| value ? scope.unopened : scope.opened }
 end
 ```
 
@@ -179,8 +179,6 @@ ProductSearch.new(params).results == ProductSearch.results(params)
 ``` ruby
 class ProductSearch
   include SearchObject.module
-
-  scope :name
 end
 
 # first arguments is treated as scope (if no scope option is provided)
@@ -198,7 +196,7 @@ class ProductSearch
   scope { Product.all }
 
   # nil values returned from option blocks are ignored
-  scope :sold { |scope, value| scope.sold if value }
+  option(:sold) { |scope, value| scope.sold if value }
 end
 ```
 
@@ -222,7 +220,7 @@ class ProductSearch
 
   scope { Product.all }
 
-  option :date { |scope, value| scope.by_date parse_dates(value) }
+  option(:date) { |scope, value| scope.by_date parse_dates(value) }
 
   private
 
@@ -258,8 +256,8 @@ class ProductSearch
 
   scope { RemoteEndpoint.fetch_product_as_hashes }
 
-  option :name     { |scope, value| scope.select { |product| product[:name] == value } }
-  option :category { |scope, value| scope.select { |product| product[:category] == value } }
+  option(:name)     { |scope, value| scope.select { |product| product[:name] == value } }
+  option(:category) { |scope, value| scope.select { |product| product[:category] == value } }
 end
 ```
 
@@ -309,19 +307,19 @@ end
 You can extarct a basic search class for your application.
 
 ```ruby
- class BaseSearch
-   include SearchObject.module
+class BaseSearch
+  include SearchObject.module
 
-   # ... options and configuration
- end
- ```
+  # ... options and configuration
+end
+```
 
  Then use it like:
 
  ```ruby
- class ProductSearch < BaseSearch
-   scope { Product }
- end
+class ProductSearch < BaseSearch
+  scope { Product }
+end
 ```
 
 ## Contributing
