@@ -32,7 +32,7 @@ module SearchObject
           max: ->(scope, max) { scope.select { |v| v < max } }
         }
 
-        search = Search.new [1, 2, 3, 4, 5], { min: 2, max: 5 },  actions
+        search = Search.new [1, 2, 3, 4, 5], { min: 2, max: 5 }, actions
         expect(search.query(Object.new)).to eq [3, 4]
       end
 

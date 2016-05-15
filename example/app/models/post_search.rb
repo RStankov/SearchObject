@@ -38,7 +38,9 @@ class PostSearch
   private
 
   def parse_date(date)
-    Date.strftime(date, '%Y-%m-%d') rescue nil
+    Date.strftime(date, '%Y-%m-%d')
+  rescue
+    nil
   end
 
   def escape_search_term(term)

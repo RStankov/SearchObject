@@ -8,7 +8,7 @@ module SearchObject
         filters = Helper.stringify_keys(options.fetch(:filters, {}))
         params  = config[:defaults].merge Helper.select_keys(filters, config[:actions].keys)
 
-        fail MissingScopeError unless scope
+        raise MissingScopeError unless scope
 
         new scope, params, config[:actions]
       end

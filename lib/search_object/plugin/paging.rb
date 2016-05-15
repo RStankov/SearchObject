@@ -26,17 +26,17 @@ module SearchObject
 
       module ClassMethods
         def per_page(number)
-          fail InvalidNumberError.new('Per page', number) unless number > 0
+          raise InvalidNumberError.new('Per page', number) unless number > 0
           config[:per_page] = number
         end
 
         def min_per_page(number)
-          fail InvalidNumberError.new('Min per page', number) unless number > 0
+          raise InvalidNumberError.new('Min per page', number) unless number > 0
           config[:min_per_page] = number
         end
 
         def max_per_page(number)
-          fail InvalidNumberError.new('Max per page', number) unless number > 0
+          raise InvalidNumberError.new('Max per page', number) unless number > 0
           config[:max_per_page] = number
         end
 

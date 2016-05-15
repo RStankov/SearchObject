@@ -182,7 +182,7 @@ module SearchObject
       end
 
       it 'can apply several options' do
-        values  = [1, 2, 3, 4, 5, 6, 7]
+        values = [1, 2, 3, 4, 5, 6, 7]
         search = new_search values, bigger_than: 3, odd: true do
           option :bigger_than do |scope, value|
             scope.select { |v| v > value }

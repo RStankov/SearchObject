@@ -42,7 +42,7 @@ module SearchObject
       end
 
       ActiveModel::Lint::Tests.public_instance_methods.map(&:to_s).grep(/^test/).each do |method|
-        example(method.gsub('_', ' ')) { send method }
+        example(method.tr('_', ' ')) { send method }
       end
     end
   end
