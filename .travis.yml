@@ -8,3 +8,5 @@ script:
   - bundle exec rspec spec
 notifications:
   email: false
+before_install:
+  - gem install bundler
