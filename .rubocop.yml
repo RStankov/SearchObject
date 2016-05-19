@@ -25,3 +25,7 @@ Style/EachWithObject:
 # Disables "Prefer reduce over inject."
 Style/CollectionMethods:
   Enabled: false
+
+# Disables "Example has too many lines"
+RSpec/ExampleLength:
+  Enabled: false

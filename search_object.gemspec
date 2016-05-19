@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'will_paginate'
   spec.add_development_dependency 'kaminari'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rubocop', '0.40.0'
+  spec.add_development_dependency 'rubocop-rspec', '1.5.0'
 end

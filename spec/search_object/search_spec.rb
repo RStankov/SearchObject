@@ -50,7 +50,7 @@ module SearchObject
           search: ->(scope, _) { scope.select { |v| v == target_value } }
         }
 
-        context = double target_value: 2
+        context = OpenStruct.new target_value: 2
 
         search = Search.new [1, 2, 3, 4, 5], { search: true }, actions
         expect(search.query(context)).to eq [2]
