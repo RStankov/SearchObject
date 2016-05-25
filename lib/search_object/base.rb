@@ -45,11 +45,7 @@ module SearchObject
       attr_reader :config
 
       def inherited(base)
-        new_config = config.dup
-
-        base.instance_eval do
-          @config = new_config
-        end
+        base.instance_variable_set '@config', Helper.deep_copy(config)
       end
 
       def scope(&block)

@@ -39,6 +39,22 @@ module SearchObject
         else ->(scope, value) { scope.where name => value unless value.blank? }
         end
       end
+
+      def deep_copy(object) # rubocop:disable Metrics/MethodLength
+        case object
+        when Array
+          object.map { |element| deep_copy(element) }
+        when Hash
+          object.inject({}) do |result, (key, value)|
+            result[key] = deep_copy(value)
+            result
+          end
+        when NilClass, FalseClass, TrueClass, Symbol, Method, Numeric
+          object
+        else
+          object.dup
+        end
+      end
     end
   end
 end
