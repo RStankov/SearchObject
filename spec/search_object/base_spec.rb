@@ -61,13 +61,20 @@ module SearchObject
     end
 
     it 'can be inherited' do
-      child_class = Class.new(search_class([1, 2, 3])) do
+      equality_search = Class.new(search_class([1, 2, 3])) do
         option :value do |scope, value|
           scope.select { |v| v == value }
         end
       end
 
-      expect(child_class.new(filters: { value: 1 }).results).to eq [1]
+      inequality_search = Class.new(search_class([1, 2, 3])) do
+        option :value do |scope, value|
+          scope.select { |v| v > value }
+        end
+      end
+
+      expect(equality_search.new(filters: { value: 1 }).results).to eq [1]
+      expect(inequality_search.new(filters: { value: 1 }).results).to eq [2, 3]
     end
 
     context 'scope' do
