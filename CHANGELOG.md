@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.1.1
+
+* Fix a bug in inheriting search objects
+
 ## Version 1.1
 
 * Search objects now can be inherited
