@@ -293,7 +293,7 @@ class ProductSearch
 
   def initialize(filters = {}, page = 0)
     super filters
-    @page = page.to_i.abc
+    @page = page.to_i.abs
   end
 
   def fetch_results
