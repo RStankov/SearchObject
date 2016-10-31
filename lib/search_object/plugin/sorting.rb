@@ -5,7 +5,7 @@ module SearchObject
         base.extend ClassMethods
         base.instance_eval do
           option :sort do |scope, _|
-            scope.order "#{sort_attribute} #{sort_direction}"
+            scope.order sort_attribute => sort_direction
           end
         end
       end
