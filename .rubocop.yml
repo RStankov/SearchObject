@@ -26,6 +26,14 @@ Style/EachWithObject:
 Style/CollectionMethods:
   Enabled: false
 
-# Disables "Example has too many lines"
+# Disables "Block has too many lines."
+Metrics/BlockLength:
+  Enabled: false
+
+# Disables "Example has too many lines."
 RSpec/ExampleLength:
+  Enabled: false
+
+# Disables "Too many expectations."
+RSpec/MultipleExpectations:
   Enabled: false

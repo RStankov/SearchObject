@@ -74,10 +74,10 @@ describe PostSearch do
   end
 
   it 'can sort by views count' do
-    post_3 = create views_count: 3
-    post_2 = create views_count: 2
-    post_1 = create views_count: 1
+    post3 = create views_count: 3
+    post2 = create views_count: 2
+    post1 = create views_count: 1
 
-    expect_search(sort: 'views_count').to eq [post_3, post_2, post_1]
+    expect_search(sort: 'views_count').to eq [post3, post2, post1]
   end
 end

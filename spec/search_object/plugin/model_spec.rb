@@ -25,9 +25,7 @@ module SearchObject
     describe ExtendedModel do
       include ActiveModel::Lint::Tests
 
-      before do
-        @model = subject
-      end
+      let(:model) { subject }
 
       def assert(condition, message = nil)
         expect(condition).to be_truthy, message
