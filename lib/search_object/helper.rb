@@ -3,6 +3,9 @@ module SearchObject
   module Helper
     class << self
       def stringify_keys(hash)
+        # Note(rstankov): From Rails 5+ ActionController::Parameters aren't Hash
+        #   In a lot of cases `stringify_keys` is used on action params
+        hash = hash.to_unsafe_h if hash.respond_to? :to_unsafe_h
         Hash[(hash || {}).map { |k, v| [k.to_s, v] }]
       end
 

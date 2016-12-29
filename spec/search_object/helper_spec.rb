@@ -1,10 +1,17 @@
 require 'spec_helper'
+require 'action_controller'
 
 module SearchObject
   describe Helper do
     describe '.stringify_keys' do
       it 'converts hash keys to strings' do
         hash = Helper.stringify_keys a: 1, b: nil, c: false
+        expect(hash).to eq 'a' => 1, 'b' => nil, 'c' => false
+      end
+
+      it 'converts ActionController::Parameters to hash' do
+        params = ::ActionController::Parameters.new a: 1, b: nil, c: false
+        hash = Helper.stringify_keys params
         expect(hash).to eq 'a' => 1, 'b' => nil, 'c' => false
       end
     end
