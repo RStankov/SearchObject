@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.1.2 (Unreleased)
+
+* __[fix]__ Ensure `sort_by` prefixes with table_name. (@andreasklinger)
+
 ## Version 1.1.1
 
 * __[fix]__ Fix a bug in inheriting search objects (@avlazarov)
