@@ -9,14 +9,14 @@ module SearchObject
       end
     end
 
-    describe '.select_keys' do
+    describe '.slice_keys' do
       it 'selects only given keys' do
-        hash = Helper.select_keys({ a: 1, b: 2, c: 3 }, [:a, :b])
+        hash = Helper.slice_keys({ a: 1, b: 2, c: 3 }, [:a, :b])
         expect(hash).to eq a: 1, b: 2
       end
 
       it 'ignores not existing keys' do
-        hash = Helper.select_keys({}, [:a, :b])
+        hash = Helper.slice_keys({}, [:a, :b])
         expect(hash).to eq({})
       end
     end

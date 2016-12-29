@@ -1,11 +1,12 @@
 module SearchObject
+  # :api: private
   module Helper
     class << self
       def stringify_keys(hash)
         Hash[(hash || {}).map { |k, v| [k.to_s, v] }]
       end
 
-      def select_keys(hash, keys)
+      def slice_keys(hash, keys)
         keys.inject({}) do |memo, key|
           memo[key] = hash[key] if hash.key? key
           memo
