@@ -9,10 +9,11 @@ module SearchObject
 
           scope { Product.all }
 
-          sort_by :name, :price
+          sort_by :name, :price, :created_at
 
           option :name
           option :price
+          option(:category) { |scope, _| scope.joins(:category) }
         end
       end
 
@@ -47,6 +48,18 @@ module SearchObject
         it 'ignores invalid sort values' do
           search = search_with_sort 'invalid attribute'
           expect { search.results.to_a }.not_to raise_error
+        end
+
+        it 'can handle renames of sorting in joins' do
+          older_category = Category.create! name: 'older'
+          newer_category = Category.create! name: 'newer'
+
+          product_of_newer_category = Product.create! name: 'older product', category: newer_category
+          product_of_older_category = Product.create! name: 'newer product', category: older_category
+
+          search = search_with_sort 'created_at desc', category: ''
+
+          expect(search.results.map(&:name)).to eq [product_of_older_category.name, product_of_newer_category.name]
         end
       end
 

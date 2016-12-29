@@ -9,12 +9,22 @@ ActiveRecord::Schema.define do
 
   create_table :products, force: true do |t|
     t.string :name
-    t.string :category_name
+    t.integer :category_id
     t.integer :price
+
+    t.timestamps null: true
+  end
+
+  create_table :categories, force: true do |t|
+    t.string :name
 
     t.timestamps null: true
   end
 end
 
 class Product < ActiveRecord::Base
+  belongs_to :category
+end
+
+class Category < ActiveRecord::Base
 end
