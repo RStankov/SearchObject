@@ -2,11 +2,11 @@
 
 ## Version 1.1.1
 
-* Fix a bug in inheriting search objects
+* __[fix]__ Fix a bug in inheriting search objects (@avlazarov)
 
 ## Version 1.1
 
-* Search objects now can be inherited
+* __[feature]__ Search objects now can be inherited  (@rstankov)
 
  ```ruby
  class BaseSearch
@@ -20,7 +20,7 @@
  end
  ```
 
-* Using instance method for straight dispatch
+* __[feature]__ Use instance method for straight dispatch (@gsamokovarov)
 
   ```ruby
   class ProductSearch
@@ -28,31 +28,25 @@
 
     scope { Product.all }
 
-    option :name
-    option :category_name
+    option :date, with: :parse_dates
 
-    attr_reader :page
+    private
 
-    def initialize(filters = {}, page = 0)
-      super filters
-      @page = page.to_i.abc
-    end
-
-    def fetch_results
-      super.paginate page: @page
+    def parse_dates(scope, value)
+      # some "magic" method to parse dates
     end
   end
   ```
 
 ## Version 1.0
 
-* Added min_per_page and max_per_page to paging plugin
+* __[feature]__ Added min_per_page and max_per_page to paging plugin (@rstankov)
 
-* Default paging behaves more like 'kaminari' and 'will_paginate' by treating 1 page as 0 index (__backward incompatible__)
+* __[change]__ Default paging behaves more like 'kaminari' and 'will_paginate' by treating 1 page as 0 index (__backward incompatible__) (@rstankov)
 
-* Raise `SearchObject::MissingScopeError` when no scope is provided
+* __[feature]__ Raise `SearchObject::MissingScopeError` when no scope is provided (@rstankov)
 
-* Replace position arguments with Hash of options (__backward incompatible__)
+* __[change]__ Replace position arguments with Hash of options (__backward incompatible__) (@rstankov)
 
   ```diff
   - Search.new params[:f], params[:page]
@@ -61,10 +55,10 @@
 
 ## Version 0.2
 
-* Added `.results` shortcut for `new(*arg).results`
+* __[feature]__ Added `.results` shortcut for `new(*arg).results` (@rstankov)
 
-* Fix wrong limit and offset in default paging
+* __[fix]__ Fix wrong limit and offset in default paging (@rstankov)
 
 ## Version 0.1
 
-* Initial release
+* Initial release (@rstankov)
