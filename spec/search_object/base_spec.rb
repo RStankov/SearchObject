@@ -105,13 +105,14 @@ module SearchObject
     describe 'option' do
       it 'has default filter' do
         scope = [1, 2, 3]
-        expect(scope).to receive(:where).with('value' => 1) { 'results' }
+        allow(scope).to receive(:where).and_return 'results'
 
         search = new_search scope, value: 1 do
           option :value
         end
 
         expect(search.results).to eq 'results'
+        expect(scope).to have_received(:where).with('value' => 1)
       end
 
       it 'returns the scope if nil returned' do
