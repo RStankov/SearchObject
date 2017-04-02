@@ -1,5 +1,7 @@
 # Changelog
 
+## Version 1.1.3
+
 ## Version 1.1.2
 
 * __[fix]__ Fix a warning due to Rails 5 `ActionController::Parameters` not being a Hash (@rstankov)
