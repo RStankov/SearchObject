@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 module SearchObject
   describe Search do
