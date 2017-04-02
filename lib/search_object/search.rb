@@ -4,7 +4,7 @@ module SearchObject
 
     class << self
       def build_for(config, options)
-        scope   = options.fetch(:scope) { config[:scope] && config[:scope].call }
+        scope   = options[:scope] || (config[:scope] && config[:scope].call)
         filters = Helper.stringify_keys(options.fetch(:filters, {}))
         params  = config[:defaults].merge Helper.slice_keys(filters, config[:actions].keys)
 

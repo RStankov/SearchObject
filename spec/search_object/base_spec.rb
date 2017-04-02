@@ -100,6 +100,14 @@ module SearchObject
 
         expect(search_class.new(scope: 'other scope').results).to eq 'other scope'
       end
+
+      it 'passing nil as scope in constructor, falls back to default scope' do
+        search_class = define_search_class do
+          scope { 'scope' }
+        end
+
+        expect(search_class.new(scope: nil).results).to eq 'scope'
+      end
     end
 
     describe 'option' do
