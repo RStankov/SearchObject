@@ -3,6 +3,39 @@ require 'ostruct'
 
 module SearchObject
   module Plugin
+    describe Enum do
+      class TestSearch
+        include SearchObject.module(:enum)
+
+        scope { [1, 2, 3, 4, 5] }
+
+        option :filter, enum: %w(odd even)
+
+        private
+
+        def apply_filter_with_odd(scope)
+          scope.select(&:odd?)
+        end
+
+        def apply_filter_with_even(scope)
+          scope.select(&:even?)
+        end
+
+        def handle_invalid_filter(_scope, value)
+          "invalid filter - #{value}"
+        end
+      end
+
+      it 'can filter by enum values' do
+        expect(TestSearch.results(filters: { filter: 'odd' })).to eq [1, 3, 5]
+        expect(TestSearch.results(filters: { filter: 'even' })).to eq [2, 4]
+      end
+
+      it 'handles wrong enum values' do
+        expect(TestSearch.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
+      end
+    end
+
     describe Enum::Handler do
       describe 'apply_filter' do
         def new_object(&block)
@@ -49,8 +82,6 @@ module SearchObject
 
         it 'can delegate missing enum value to object' do
           object = new_object do
-            private
-
             def handle_invalid_option(_scope, value)
               "handles #{value} value"
             end
@@ -61,8 +92,6 @@ module SearchObject
 
         it 'can delegate missing enum value to object (cath all)' do
           object = new_object do
-            private
-
             def handle_invalid_enum(option, _scope, value)
               "handles #{value} value for #{option}"
             end

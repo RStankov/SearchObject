@@ -5,8 +5,22 @@ module SearchObject
         base.extend ClassMethods
       end
 
+      module ClassMethods
+        def option(name, options = nil, &_block)
+          handler = Handler.build(name, options[:enum]) if options[:enum]
+
+          super(name, options, &handler)
+        end
+      end
+
       module Handler
         module_function
+
+        def build(name, enums)
+          enums = enums.map(&:to_s)
+          handler = self
+          ->(scope, value) { handler.apply_filter(object: self, option: name, enums: enums, scope: scope, value: value) }
+        end
 
         def apply_filter(object:, option:, enums:, scope:, value:)
           unless enums.include? value
