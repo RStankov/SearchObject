@@ -2,10 +2,39 @@
 
 ## Version 1.2.0 (unreleased)
 
+* __[feature]__ `enum` plugin added (@rstankov)
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:enum)
+
+  scope { Product.all }
+
+  option :order, enum: %w(popular date)
+
+  private
+
+  # Gets called when order with 'popular' is given
+  def apply_order_with_popular(scope)
+    scope.by_popularity
+  end
+
+  # Gets called when order with 'date' is given
+  def apply_order_with_date(scope)
+    scope.by_date
+  end
+
+  # Gets called when invalid enum is given
+  def handle_invalid_order(scope, invalid_value)
+    scope
+  end
+end
+```
+
 * __[feature]__ Scope is executed  in context of SearchObject::Base context (@rstankov)
 
  ```ruby
-class ProductSearch < BaseSearch
+class ProductSearch
   include SearchObject.module
 
   scope { @shop.products }
