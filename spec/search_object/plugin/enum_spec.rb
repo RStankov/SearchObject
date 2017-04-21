@@ -34,6 +34,26 @@ module SearchObject
       it 'handles wrong enum values' do
         expect(TestSearch.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
       end
+
+      it 'raises when block is passed with enum option' do
+        expect do
+          Class.new do
+            include SearchObject.module(:enum)
+
+            option(:filter, enum: %w(a b)) { |_scope, _value| nil }
+          end
+        end.to raise_error Enum::BlockIgnoredError
+      end
+
+      it 'raises when :with is passed with enum option' do
+        expect do
+          Class.new do
+            include SearchObject.module(:enum)
+
+            option :filter, enum: %w(a b), with: :method_name
+          end
+        end.to raise_error Enum::WithIgnoredError
+      end
     end
 
     describe Enum::Handler do

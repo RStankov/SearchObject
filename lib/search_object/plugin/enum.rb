@@ -6,8 +6,13 @@ module SearchObject
       end
 
       module ClassMethods
-        def option(name, options = nil, &_block)
-          handler = Handler.build(name, options[:enum]) if options[:enum]
+        def option(name, options = nil, &block)
+          return super unless options.is_a?(Hash) && options[:enum]
+
+          raise BlockIgnoredError if block
+          raise WithIgnoredError if options[:with]
+
+          handler = Handler.build(name, options[:enum])
 
           super(name, options, &handler)
         end
@@ -50,6 +55,18 @@ module SearchObject
       class InvalidEnumValueError < ArgumentError
         def initialize(option, enums, value)
           super "Wrong value '#{value}' used for enum #{option} (expected one of #{enums.join(', ')})"
+        end
+      end
+
+      class BlockIgnoredError < ArgumentError
+        def initialize(message = "Enum options don't accept blocks")
+          super message
+        end
+      end
+
+      class WithIgnoredError < ArgumentError
+        def initialize(message = "Enum options don't accept :with")
+          super message
         end
       end
     end
