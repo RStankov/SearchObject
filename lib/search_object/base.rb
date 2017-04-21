@@ -13,14 +13,20 @@ module SearchObject
 
     def initialize(options = {})
       config = self.class.config
+
       scope = options[:scope] || (config[:scope] && instance_eval(&config[:scope]))
 
-      @search = Search.build_for(
-        scope: scope,
-        actions: config.fetch(:actions, {}),
-        defaults: config.fetch(:defaults, {}),
-        filters: options.fetch(:filters, {})
+      raise MissingScopeError unless scope
+
+      actions  = config[:actions] || {}
+      defaults = config[:defaults] || {}
+      filters  = options[:filters] || {}
+
+      params = defaults.merge(
+        Helper.slice_keys(Helper.stringify_keys(filters), actions.keys)
       )
+
+      @search = Search.new(scope, params, actions)
     end
 
     def results
