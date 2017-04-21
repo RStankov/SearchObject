@@ -8,6 +8,7 @@ require 'search_object/plugin/paging'
 require 'search_object/plugin/will_paginate'
 require 'search_object/plugin/kaminari'
 require 'search_object/plugin/sorting'
+require 'search_object/plugin/enum'
 
 module SearchObject
   def self.module(*plugins)
