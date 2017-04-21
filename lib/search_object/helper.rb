@@ -21,6 +21,15 @@ module SearchObject
       text.to_s.gsub(/(?:^|_)(.)/) { Regexp.last_match[1].upcase }
     end
 
+    def underscore(text)
+      text.to_s
+          .tr('::', '_')
+          .gsub(/([A-Z]+)([A-Z][a-z])/) { "#{Regexp.last_match[1]}_#{Regexp.last_match[2]}" }
+          .gsub(/([a-z\d])([A-Z])/) { "#{Regexp.last_match[1]}_#{Regexp.last_match[2]}" }
+          .tr('-', '_')
+          .downcase
+    end
+
     def ensure_included(item, collection)
       if collection.include? item
         item

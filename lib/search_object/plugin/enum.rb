@@ -38,7 +38,7 @@ module SearchObject
             )
           end
 
-          object.send("apply_#{option}_with_#{value}", scope)
+          object.send("apply_#{option}_with_#{Helper.underscore(value)}", scope)
         end
 
         def handle_invalid_value(object:, option:, enums:, scope:, value:)

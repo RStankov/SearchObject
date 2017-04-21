@@ -34,6 +34,13 @@ module SearchObject
       end
     end
 
+    describe 'underscore' do
+      it "transforms 'veryPopular' to 'very_popular'" do
+        expect(described_class.underscore(:veryPopular)).to eq 'very_popular'
+        expect(described_class.underscore('VERY_POPULAR')).to eq 'very_popular'
+      end
+    end
+
     describe '.normalize_filters' do
       it 'combines defaults and filters' do
         expect(described_class.normalize_params({ 'a' => 1, 'b' => 2 }, { a: 2 }, %w(a b))).to eq 'a' => 2, 'b' => 2
