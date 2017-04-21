@@ -12,7 +12,15 @@ module SearchObject
     end
 
     def initialize(options = {})
-      @search = Search.build_for self.class.config, options
+      config = self.class.config
+      scope = options[:scope] || (config[:scope] && config[:scope].call)
+
+      @search = Search.build_for(
+        scope: scope,
+        actions: config.fetch(:actions, {}),
+        defaults: config.fetch(:defaults, {}),
+        filters: options.fetch(:filters, {}),
+      )
     end
 
     def results

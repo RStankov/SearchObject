@@ -3,14 +3,14 @@ module SearchObject
     attr_reader :params
 
     class << self
-      def build_for(config, options)
-        scope   = options[:scope] || (config[:scope] && config[:scope].call)
-        filters = Helper.stringify_keys(options.fetch(:filters, {}))
-        params  = config[:defaults].merge Helper.slice_keys(filters, config[:actions].keys)
-
+      def build_for(scope:, actions:, defaults:, filters:)
         raise MissingScopeError unless scope
 
-        new scope, params, config[:actions]
+        params = defaults.merge(
+          Helper.slice_keys(Helper.stringify_keys(filters), actions.keys)
+        )
+
+        new scope, params, actions
       end
     end
 
