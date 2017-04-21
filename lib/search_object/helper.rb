@@ -45,6 +45,10 @@ module SearchObject
       end
     end
 
+    def normalize_params(defaults, filters, keys)
+      (defaults || {}).merge(slice_keys(stringify_keys(filters || {}), keys || []))
+    end
+
     def deep_copy(object) # rubocop:disable Metrics/MethodLength
       case object
       when Array
