@@ -1,6 +1,8 @@
 # Changelog
 
-## Version 1.1.3 (unreleased)
+## Version 1.2.0 (unreleased)
+
+## Version 1.1.3
 
 * __[feature]__ Passing nil as `scope` in constructor, falls back to default scope (@rstankov)
 
