@@ -13,16 +13,14 @@ class PostSearch
   option :user_id
   option :category_name
 
+  option :term, with: :apply_term
+
   option :title do |scope, value|
     scope.where 'title LIKE ?', escape_search_term(value)
   end
 
   option :published do |scope, value|
     scope.where published: true if value.present?
-  end
-
-  option :term do |scope, value|
-    scope.where 'title LIKE :term OR body LIKE :term', term: escape_search_term(value)
   end
 
   option :created_after do |scope, value|
@@ -36,6 +34,10 @@ class PostSearch
   end
 
   private
+
+  def apply_term(scope, value)
+    scope.where 'title LIKE :term OR body LIKE :term', term: escape_search_term(value)
+  end
 
   def parse_date(value)
     Date.parse(value).strftime('%Y-%m-%d')
