@@ -101,6 +101,21 @@ module SearchObject
         expect(search_class.new(scope: 'other scope').results).to eq 'other scope'
       end
 
+      it 'scope block is exectued in context of search object' do
+        search_class = define_search_class do
+          scope { inner_scope }
+
+          attr_reader :inner_scope
+
+          def initialize
+            @inner_scope = 'scope'
+            super
+          end
+        end
+
+        expect(search_class.new.results).to eq 'scope'
+      end
+
       it 'passing nil as scope in constructor, falls back to default scope' do
         search_class = define_search_class do
           scope { 'scope' }

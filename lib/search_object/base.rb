@@ -13,13 +13,13 @@ module SearchObject
 
     def initialize(options = {})
       config = self.class.config
-      scope = options[:scope] || (config[:scope] && config[:scope].call)
+      scope = options[:scope] || (config[:scope] && instance_eval(&config[:scope]))
 
       @search = Search.build_for(
         scope: scope,
         actions: config.fetch(:actions, {}),
         defaults: config.fetch(:defaults, {}),
-        filters: options.fetch(:filters, {}),
+        filters: options.fetch(:filters, {})
       )
     end
 

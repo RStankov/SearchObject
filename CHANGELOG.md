@@ -2,6 +2,21 @@
 
 ## Version 1.2.0 (unreleased)
 
+* __[feature]__ Scope is executed  in context of SearchObject::Base context (@rstankov)
+
+ ```ruby
+class ProductSearch < BaseSearch
+  include SearchObject.module
+
+  scope { @shop.products }
+
+  def initialize(shop)
+    @shop = shop
+    super
+  end
+end
+```
+
 ## Version 1.1.3
 
 * __[feature]__ Passing nil as `scope` in constructor, falls back to default scope (@rstankov)
