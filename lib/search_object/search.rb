@@ -1,4 +1,5 @@
 module SearchObject
+  # :api: private
   class Search
     attr_reader :params
 
