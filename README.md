@@ -104,9 +104,40 @@ include SearchObject.module(:will_paginate)
 include SearchObject.module(:kaminari)
 ```
 
+### Enum plugin
+
+Gives you filter with pre-defined options.
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:enum)
+
+  scope { Product.all }
+
+  option :order, enum: %w(popular date)
+
+  private
+
+  # Gets called when order with 'popular' is given
+  def apply_order_with_popular(scope)
+    scope.by_popularity
+  end
+
+  # Gets called when order with 'date' is given
+  def apply_order_with_date(scope)
+    scope.by_date
+  end
+
+  # (optional) Gets called when invalid enum is given
+  def handle_invalid_order(scope, invalid_value)
+    scope
+  end
+end
+```
+
 ### Model plugin
 
-Extends your search object with ```ActiveModel```, so you can use it in rails forms.
+Extends your search object with ```ActiveModel```, so you can use it in Rails forms.
 
 ```ruby
 class ProductSearch
