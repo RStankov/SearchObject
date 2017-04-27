@@ -1,6 +1,5 @@
 require 'spec_helper_active_record'
-
-require_relative '../../support/kaminari_setup'
+require 'kaminari'
 
 module SearchObject
   module Plugin
