@@ -28,14 +28,10 @@ module SearchObject
         end
 
         def apply_filter(object:, option:, enums:, scope:, value:)
+          return if value.nil? || value == ''
+
           unless enums.include? value
-            return handle_invalid_value(
-              object: object,
-              option: option,
-              enums: enums,
-              scope: scope,
-              value: value
-            )
+            return handle_invalid_value(object: object, option: option, enums: enums, scope: scope, value: value)
           end
 
           object.send("apply_#{option}_with_#{Helper.underscore(value)}", scope)

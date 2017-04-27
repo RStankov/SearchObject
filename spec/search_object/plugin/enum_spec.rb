@@ -31,6 +31,11 @@ module SearchObject
         expect(TestSearch.results(filters: { filter: 'even' })).to eq [2, 4]
       end
 
+      it 'ignores blank values' do
+        expect(TestSearch.results(filters: { filter: nil })).to eq [1, 2, 3, 4, 5]
+        expect(TestSearch.results(filters: { filter: '' })).to eq [1, 2, 3, 4, 5]
+      end
+
       it 'handles wrong enum values' do
         expect(TestSearch.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
       end
