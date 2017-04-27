@@ -7,6 +7,7 @@
     = form.search_field :term, placeholder: 'Search term'
     = date_field_tag 'f[created_after]', @search.created_after
     = date_field_tag 'f[created_before]', @search.created_before
+    = select_tag 'f[rating]', options_for_select([['All', ''], ['Popular', 'high'], ['Unpopular', 'low']], @search.rating)
     = form.submit 'Search'
 
     div.pull-right

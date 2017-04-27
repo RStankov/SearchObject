@@ -31,7 +31,9 @@ body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; f
   fieldset { margin-bottom: 20px; padding: 10px; border: 1px solid #e7e7e7; border-radius: 4px; background-color: #f8f8f8; }
   fieldset input[type="submit"] { @extend .btn; @extend .btn-default; }
   fieldset input[type="search"],
+  fieldset select,
   fieldset input[type="date"] { vertical-align: middle; height: 34px; padding: 6px 12px; margin-right: 10px; }
+  fieldset select { width: 100px; }
 
   table thead label { color: #428bca; }
   table thead .active { font-weight: bold; color: black; }

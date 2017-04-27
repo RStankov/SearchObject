@@ -1,5 +1,5 @@
 class PostSearch
-  include SearchObject.module(:model, :sorting, :will_paginate)
+  include SearchObject.module(:model, :sorting, :will_paginate, :enum)
 
   scope { Post.all }
 
@@ -14,6 +14,8 @@ class PostSearch
   option :category_name
 
   option :term, with: :apply_term
+
+  option :rating, enum: %i(low high)
 
   option :title do |scope, value|
     scope.where 'title LIKE ?', escape_search_term(value)
@@ -37,6 +39,14 @@ class PostSearch
 
   def apply_term(scope, value)
     scope.where 'title LIKE :term OR body LIKE :term', term: escape_search_term(value)
+  end
+
+  def apply_rating_with_low(scope)
+    scope.where 'views_count < 100'
+  end
+
+  def apply_rating_with_high(scope)
+    scope.where 'views_count > 500'
   end
 
   def parse_date(value)
