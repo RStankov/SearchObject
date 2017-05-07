@@ -1,11 +1,11 @@
-# SearchObject example Rails application
+# SearchObject Example Rails Application
 
 This is example application showing, one of the possible usages of ```SearchObject```. It showcases the following features:
 
   * Basic search object functionality
   * Default options
   * Using private method helpers in options
-  * Plugins: model, sorting, will_paginate
+  * Plugins: model, sorting, will_paginate, enum
 
 ## Interesting files:
 

@@ -1,11 +1,44 @@
-[![Gem Version](https://badge.fury.io/rb/search_object.svg)](http://badge.fury.io/rb/search_object)
+[![Gem Version](https://badge.fury.io/rb/search_object.svg)](http://badge.fury.io/rb/search_object_graphql)
 [![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.svg)](https://codeclimate.com/github/RStankov/SearchObject)
 [![Build Status](https://secure.travis-ci.org/RStankov/SearchObject.svg)](http://travis-ci.org/RStankov/SearchObject)
 [![Code coverage](https://coveralls.io/repos/RStankov/SearchObject/badge.svg?branch=master)](https://coveralls.io/r/RStankov/SearchObject)
 
 # SearchObject
 
-In many of my projects I needed an object that performs several fairly complicated queries. Or, just some multi-field search forms. Most times I hand-coded them, but they would get complicated over time when other concerns were added like sorting, pagination and so on. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
+In many of my projects I needed an object that performs several fairly complicated queries. Most times I hand-coded them, but they would get complicated over time when other concerns like sorting, pagination and so are being added. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
+
+It is usefull for:
+
+- complicated search forms
+- api endpoints with multiple filter conditions
+- [GraphQL](https://rmosolgo.github.io/graphql-ruby/) resolvers
+- ... search objects 😀
+
+## Table of Contents
+
+* [Installation](#installation)
+* [Dependencies](#dependencies)
+* [Usage](#usage)
+  * [Example](#example)
+* [Plugins](#plugins)
+  * [Paginate Plugin](#paginate-plugin)
+  * [Enum Plugin](#enum-plugin)
+  * [Model Plugin](#model-plugin)
+  * [GraphQL Plugin](#graphql-plugin)
+  * [Sorting Plugin](#sorting-plugin)
+* [Tips & Tricks](#tips--tricks)
+    * [Results Shortcut](#results-shortcut)
+    * [Passing Scope as Argument](#passing-scope-as-argument)
+    * [Handling Nil Options](#handling-nil-options)
+    * [Default Option Block](#default-option-block)
+    * [Using Instance Method in Option Blocks](#using-instance-method-in-option-blocks)
+    * [Using Instance Method for Straight Dispatch](#using-instance-method-for-straight-dispatch)
+    * [Active Record Is Not Required](#active-record-is-not-required)
+    * [Overwriting Methods](#overwriting-methods)
+    * [Extracting Basic Module](#extracting-basic-module#)
+* [Contributing](#contributing)
+* [License](#license)
+
 
 ## Installation
 
@@ -59,7 +92,7 @@ search.params                      # => option values
 search.params opened: false        # => overwrites the 'opened' option
 ```
 
-## Example
+### Example
 
 You can find example of most important features and plugins - [here](https://github.com/RStankov/SearchObject/tree/master/example).
 
@@ -69,7 +102,7 @@ You can find example of most important features and plugins - [here](https://git
 
 Plugins are just plain Ruby modules, which are included with ```SearchObject.module```. They are located under ```SearchObject::Plugin``` module.
 
-### Paginate plugin
+### Paginate Plugin
 
 Really simple paginate plugin, which uses the plain ```.limit``` and ```.offset``` methods.
 
@@ -104,7 +137,7 @@ include SearchObject.module(:will_paginate)
 include SearchObject.module(:kaminari)
 ```
 
-### Enum plugin
+### Enum Plugin
 
 Gives you filter with pre-defined options.
 
@@ -135,7 +168,7 @@ class ProductSearch
 end
 ```
 
-### Model plugin
+### Model Plugin
 
 Extends your search object with ```ActiveModel```, so you can use it in Rails forms.
 
@@ -161,7 +194,28 @@ end
 <% end %>
 ```
 
-### Sorting plugin
+### GraphQL Plugin
+
+Installed as separate [gem](https://github.com/RStankov/SearchObjectGraphQL), it is designed to work with GraphQL:
+
+```
+gem 'search_object_graphql'
+```
+
+```ruby
+class PostResolver
+  include SearchObject.module(:graphql)
+
+  type PostType
+
+  scope { Post.all }
+
+  option(:name, type: types.String)       { |scope, value| scope.where name: value }
+  option(:published, type: types.Boolean) { |scope, value| value ? scope.published : scope.unpublished }
+end
+```
+
+### Sorting Plugin
 
 Fixing the pain of dealing with sorting attributes and directions.
 
@@ -197,7 +251,7 @@ search.sort_params_for('name')
 
 ## Tips & Tricks
 
-### Results shortcut
+### Results Shortcut
 
 Very often you will just need results of search:
 
@@ -205,7 +259,7 @@ Very often you will just need results of search:
 ProductSearch.new(params).results == ProductSearch.results(params)
 ```
 
-### Passing scope as argument
+### Passing Scope as Argument
 
 ``` ruby
 class ProductSearch
@@ -217,8 +271,7 @@ search = ProductSearch.new scope: Product.visible, filters: params[:f]
 search.results # => includes only visible products
 ```
 
-
-### Handling nil options
+### Handling Nil Options
 
 ```ruby
 class ProductSearch
@@ -231,7 +284,7 @@ class ProductSearch
 end
 ```
 
-### Default option block
+### Default Option Block
 
 ```ruby
 class ProductSearch
@@ -243,7 +296,7 @@ class ProductSearch
 end
 ```
 
-### Using instance method in option blocks
+### Using Instance Method in Option Blocks
 
 ```ruby
 class ProductSearch
@@ -261,7 +314,7 @@ class ProductSearch
 end
 ```
 
-### Using instance method for straight dispatch
+### Using Instance Method for Straight Dispatch
 
 ```ruby
 class ProductSearch
@@ -279,7 +332,7 @@ class ProductSearch
 end
 ```
 
-### Active Record is not required at all
+### Active Record Is Not Required
 
 ```ruby
 class ProductSearch
@@ -292,7 +345,7 @@ class ProductSearch
 end
 ```
 
-### Overwriting methods
+### Overwriting Methods
 
 You can have fine grained scope, by overwriting ```initialize``` method:
 
@@ -333,7 +386,7 @@ class ProductSearch
 end
 ```
 
-### Extracting basic module
+### Extracting Basic Module
 
 You can extarct a basic search class for your application.
 
