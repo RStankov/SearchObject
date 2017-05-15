@@ -7,7 +7,7 @@
 
 In many of my projects I needed an object that performs several fairly complicated queries. Most times I hand-coded them, but they would get complicated over time when other concerns like sorting, pagination and so are being added. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
 
-It is usefull for:
+It is useful for:
 
 - complicated search forms
 - api endpoints with multiple filter conditions
