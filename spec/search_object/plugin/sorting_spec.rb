@@ -42,7 +42,7 @@ module SearchObject
           5.times { |i| Product.create! name: "Name#{i}" }
 
           search = search_with_sort
-          expect(search.results.map(&:name)).to eq %w(Name4 Name3 Name2 Name1 Name0)
+          expect(search.results.map(&:name)).to eq %w[Name4 Name3 Name2 Name1 Name0]
         end
 
         it 'ignores invalid sort values' do
@@ -67,22 +67,22 @@ module SearchObject
         it 'matches the sort option' do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?(:price)).to be_truthy
-          expect(search.sort?(:name)).to be_falsey
+          expect(search).to be_sort :price
+          expect(search).not_to be_sort :name
         end
 
         it 'matches string also' do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?('price')).to be_truthy
-          expect(search.sort?('name')).to be_falsey
+          expect(search).to be_sort 'price'
+          expect(search).not_to be_sort 'name'
         end
 
         it 'matches exact strings' do
           search = search_with_sort 'price desc'
 
-          expect(search.sort?('price desc')).to be_truthy
-          expect(search.sort?('price asc')).to be_falsey
+          expect(search).to be_sort 'price desc'
+          expect(search).not_to be_sort 'price asc'
         end
       end
 

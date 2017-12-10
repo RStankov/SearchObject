@@ -77,7 +77,7 @@ module SearchObject
       expect(inequality_search.new(filters: { value: 1 }).results).to eq [2, 3]
     end
 
-    context 'scope' do
+    describe 'scope' do
       def search_class
         define_search_class do
           option :name do
@@ -258,11 +258,11 @@ module SearchObject
 
     describe '#results?' do
       it 'returns true if there are results' do
-        expect(new_search([1, 2, 3], value: 1).results?).to be_truthy
+        expect(new_search([1, 2, 3], value: 1)).to be_results
       end
 
       it 'returns false if there are no results' do
-        expect(new_search([1, 2, 3], value: 4).results?).to be_falsey
+        expect(new_search([1, 2, 3], value: 4)).not_to be_results
       end
     end
 

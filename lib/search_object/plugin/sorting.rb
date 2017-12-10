@@ -19,7 +19,7 @@ module SearchObject
       end
 
       def sort_direction
-        @sort_direction ||= Helper.ensure_included sort.to_s.split(' ', 2).last, %w(desc asc)
+        @sort_direction ||= Helper.ensure_included sort.to_s.split(' ', 2).last, %w[desc asc]
       end
 
       def sort_direction_for(attribute)

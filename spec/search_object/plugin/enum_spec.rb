@@ -9,7 +9,7 @@ module SearchObject
 
         scope { [1, 2, 3, 4, 5] }
 
-        option :filter, enum: %w(odd even)
+        option :filter, enum: %w[odd even]
 
         private
 
@@ -45,7 +45,7 @@ module SearchObject
           Class.new do
             include SearchObject.module(:enum)
 
-            option(:filter, enum: %w(a b)) { |_scope, _value| nil }
+            option(:filter, enum: %w[a b]) { |_scope, _value| nil }
           end
         end.to raise_error Enum::BlockIgnoredError
       end
@@ -55,7 +55,7 @@ module SearchObject
           Class.new do
             include SearchObject.module(:enum)
 
-            option :filter, enum: %w(a b), with: :method_name
+            option :filter, enum: %w[a b], with: :method_name
           end
         end.to raise_error Enum::WithIgnoredError
       end
@@ -91,10 +91,10 @@ module SearchObject
             end
           end
 
-          scope = %w(name age location)
+          scope = %w[name age location]
 
-          expect(call(object: object, option: 'select', scope: scope, value: 'name')).to eq %w(name)
-          expect(call(object: object, option: 'select', scope: scope, value: 'age')).to eq %w(age)
+          expect(call(object: object, option: 'select', scope: scope, value: 'name')).to eq %w[name]
+          expect(call(object: object, option: 'select', scope: scope, value: 'age')).to eq %w[age]
         end
 
         it 'raises NoMethodError when object can not handle enum method' do

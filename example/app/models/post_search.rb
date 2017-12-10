@@ -15,7 +15,7 @@ class PostSearch
 
   option :term, with: :apply_term
 
-  option :rating, enum: %i(low high)
+  option :rating, enum: %i[low high]
 
   option :title do |scope, value|
     scope.where 'title LIKE ?', escape_search_term(value)
@@ -51,7 +51,7 @@ class PostSearch
 
   def parse_date(value)
     Date.parse(value).strftime('%Y-%m-%d')
-  rescue
+  rescue ArgumentError
     nil
   end
 

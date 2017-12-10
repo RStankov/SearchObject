@@ -37,7 +37,7 @@ shared_examples_for 'a paging plugin' do
       6.times { |i| Product.create name: "product_#{i}" }
       search = search_with_page 2, 2
 
-      expect(search.results.map(&:name)).to eq %w(product_2 product_3)
+      expect(search.results.map(&:name)).to eq %w[product_2 product_3]
     end
   end
 
