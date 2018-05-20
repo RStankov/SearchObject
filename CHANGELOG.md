@@ -1,6 +1,20 @@
 # Changelog
 
-## Version 1.2.0 (unreleased)
+## Version 1.2.1
+
+* __[feature]__ Add `default:` option to `sort_by` plugin (@rstankov)
+
+```ruby
+class ProductSearch
+  include SearchObject.module(:sorting)
+
+  scope { Product.all }
+
+  sort_by :name, :price, :created_at, default: 'price asc'
+end
+```
+
+## Version 1.2.0
 
 * __[feature]__ `enum` plugin added (@rstankov)
 
