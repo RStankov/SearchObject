@@ -39,6 +39,10 @@ module SearchObject
         expect(value).to eq(expected_value), message
       end
 
+      def assert_respond_to(object, method, message = nil)
+        expect(object).to respond_to(method), message
+      end
+
       ActiveModel::Lint::Tests.public_instance_methods.map(&:to_s).grep(/^test/).each do |method|
         example(method.tr('_', ' ')) { send method }
       end
