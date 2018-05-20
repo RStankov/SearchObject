@@ -39,6 +39,20 @@ module SearchObject
         end
 
         it 'defaults to first sort by option' do
+          search_class = Class.new do
+            include SearchObject.module(:sorting)
+
+            scope { Product.all }
+
+            sort_by :name, :price, :created_at, default: :price
+          end
+
+          5.times { |i| Product.create! price: i }
+
+          expect(search_class.new.results.map(&:price)).to eq [4, 3, 2, 1, 0]
+        end
+
+        it 'accepts default sorting' do
           5.times { |i| Product.create! name: "Name#{i}" }
 
           search = search_with_sort

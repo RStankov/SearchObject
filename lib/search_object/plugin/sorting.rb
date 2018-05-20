@@ -40,9 +40,9 @@ module SearchObject
       end
 
       module ClassMethods
-        def sort_by(*attributes)
+        def sort_by(*attributes, default: nil)
           config[:sort_attributes]  = attributes.map(&:to_s)
-          config[:defaults]['sort'] = "#{config[:sort_attributes].first} desc"
+          config[:defaults]['sort'] = default || "#{config[:sort_attributes].first} desc"
         end
 
         def sort_attributes
