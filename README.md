@@ -115,7 +115,7 @@ class ProductSearch
   option :name
   option :category_name
 
-  # per page defaults to 25
+  # per page defaults to 10
   per_page 10
 
   # range of values is also possible
