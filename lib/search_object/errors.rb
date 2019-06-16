@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchObject
   class MissingScopeError < ArgumentError
     def initialize(message = 'No scope provided. Scope can be defined on a class level or passed as an option.')
