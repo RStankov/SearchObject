@@ -1,5 +1,10 @@
 # Changelog
 
+
+## Version 1.2.2
+
+* __[fix]__ `option :orderBy, enum: %(price date)`, now expects a method `apply_order_by_x`, instead of `apply_orderBy_with_`
+
 ## Version 1.2.1
 
 * __[feature]__ Add `default:` option to `sort_by` plugin (@rstankov)

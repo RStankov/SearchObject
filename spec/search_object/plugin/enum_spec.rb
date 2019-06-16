@@ -10,6 +10,7 @@ module SearchObject
         scope { [1, 2, 3, 4, 5] }
 
         option :filter, enum: %w[odd even]
+        option :camelCase, enum: %w[someValue]
 
         private
 
@@ -19,6 +20,10 @@ module SearchObject
 
         def apply_filter_with_even(scope)
           scope.select(&:even?)
+        end
+
+        def apply_camel_case_with_some_value(_scope)
+          [1]
         end
 
         def handle_invalid_filter(_scope, value)
@@ -38,6 +43,10 @@ module SearchObject
 
       it 'handles wrong enum values' do
         expect(TestSearch.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
+      end
+
+      it 'underscores method and enum values' do
+        expect(TestSearch.results(filters: { camelCase: 'someValue' })).to eq [1]
       end
 
       it 'raises when block is passed with enum option' do
