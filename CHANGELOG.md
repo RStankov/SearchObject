@@ -3,11 +3,12 @@
 
 ## Version 1.2.2
 
-* __[fix]__ `option :orderBy, enum: %(price date)`, now expects a method `apply_order_by_x`, instead of `apply_orderBy_with_`
+* __[feature]__ Added `SearchObject::Base#params=` method, to reset search results (@rstankov)
+* __[change]__ `option :orderBy, enum: %(price date)`, now expects a method `apply_order_by_x`, instead of `apply_orderBy_with_` (__backward incompatible__) (@rstankov)
 
 ## Version 1.2.1
 
-* __[feature]__ Add `default:` option to `sort_by` plugin (@rstankov)
+* __[feature]__ Added `default:` option to `sort_by` plugin (@rstankov)
 
 ```ruby
 class ProductSearch
@@ -21,7 +22,7 @@ end
 
 ## Version 1.2.0
 
-* __[feature]__ `enum` plugin added (@rstankov)
+* __[feature]__ Added `enum` plugin (@rstankov)
 
 ```ruby
 class ProductSearch

@@ -38,6 +38,12 @@ module SearchObject
       @count ||= @search.count self
     end
 
+    def params=(params)
+      @count = nil
+      @results = nil
+      @search.params = params
+    end
+
     def params(additions = {})
       if additions.empty?
         @search.params

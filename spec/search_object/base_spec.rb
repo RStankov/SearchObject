@@ -282,6 +282,23 @@ module SearchObject
       end
     end
 
+    describe '#params=' do
+      it 'resets search' do
+        search = new_search [1, 2, 3], value: 1 do
+          option :value do |scope, value|
+            scope.select { |v| v > value }
+          end
+        end
+
+        expect(search.results).to eq [2, 3]
+        expect(search.count).to eq 2
+
+        search.params = { value: 2 }
+        expect(search.results).to eq [3]
+        expect(search.count).to eq 1
+      end
+    end
+
     describe '#params' do
       it 'exports options as params' do
         search = new_search [], value: 1
