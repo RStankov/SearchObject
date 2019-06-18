@@ -76,7 +76,7 @@ end
 Then you can just search the given scope:
 
 ```ruby
-search = PostSearch.new filters: params[:filters]
+search = PostSearch.new(filters: params[:filters])
 
 # accessing search options
 search.name                        # => name option
@@ -123,7 +123,7 @@ class ProductSearch
   max_per_page 100
 end
 
-search = ProductSearch.new filters: params[:filters], page: params[:page], per_page: params[:per_page]
+search = ProductSearch.new(filters: params[:filters], page: params[:page], per_page: params[:per_page])
 
 search.page                                                 # => page number
 search.per_page                                             # => per page (10)
@@ -228,7 +228,7 @@ class ProductSearch
   sort_by :name, :price
 end
 
-search = ProductSearch.new filters: {sort: 'price desc'}
+search = ProductSearch.new(filters: {sort: 'price desc'})
 
 search.results                                # => Product sorted my price DESC
 search.sort_attribute                         # => 'price'
@@ -267,7 +267,7 @@ class ProductSearch
 end
 
 # first arguments is treated as scope (if no scope option is provided)
-search = ProductSearch.new scope: Product.visible, filters: params[:f]
+search = ProductSearch.new(scope: Product.visible, filters: params[:f])
 search.results # => includes only visible products
 ```
 
