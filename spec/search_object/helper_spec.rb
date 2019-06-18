@@ -41,24 +41,6 @@ module SearchObject
       end
     end
 
-    describe '.normalize_filters' do
-      it 'combines defaults and filters' do
-        expect(described_class.normalize_params({ 'a' => 1, 'b' => 2 }, { a: 2 }, %w[a b])).to eq 'a' => 2, 'b' => 2
-      end
-
-      it 'excludes non specified keys' do
-        expect(described_class.normalize_params({ 'a' => 1 }, { b: 2 }, %w[a])).to eq 'a' => 1
-      end
-
-      it 'handles missing defaults' do
-        expect(described_class.normalize_params(nil, { a: 1 }, %w[a])).to eq 'a' => 1
-      end
-
-      it 'handles missing filters' do
-        expect(described_class.normalize_params(nil, nil, ['a'])).to eq({})
-      end
-    end
-
     describe 'deep_copy' do
       it 'returns a deep copy on the given object' do
         original = {

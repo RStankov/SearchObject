@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'search_object/version'
 require 'search_object/errors'
 require 'search_object/helper'

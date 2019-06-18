@@ -4,67 +4,84 @@ require 'ostruct'
 module SearchObject
   describe Search do
     describe '.params' do
-      it 'returns the passed params' do
-        search = Search.new('scope', 'params', {})
-        expect(search.params).to eq 'params'
+      it 'stringify param keys' do
+        search = described_class.new(scope: 'scope', params: { name: 'value' }, options: { 'name' => nil })
+        expect(search.params).to eq 'name' => 'value'
+      end
+
+      it 'filters invalid params' do
+        search = described_class.new(scope: 'scope', params: { name: 'value' })
+        expect(search.params).to eq({})
+      end
+
+      it 'supports default values' do
+        search = described_class.new(scope: 'scope', params: {}, defaults: { 'name' => 'value' })
+        expect(search.params).to eq 'name' => 'value'
+      end
+
+      it 'can be updated' do
+        search = described_class.new(scope: 'scope', params: { name: 'value' }, options: { 'name' => nil })
+        search.params = { name: 'updated', fake: 'value' }
+
+        expect(search.params).to eq 'name' => 'updated'
       end
     end
 
     describe '.param' do
       it 'returns the param value' do
-        search = Search.new('scope', { name: 'value' }, {})
+        search = described_class.new(scope: 'scope', params: { name: 'value' }, options: { 'name' => nil })
         expect(search.param(:name)).to eq 'value'
       end
     end
 
     describe '.query' do
       it 'returns filtered result' do
-        actions = {
-          min: ->(scope, min) { scope.select { |v| v > min } }
+        options = {
+          'min' => ->(scope, min) { scope.select { |v| v > min } }
         }
 
-        search = Search.new [1, 2, 3], { min: 2 }, actions
+        search = described_class.new(scope: [1, 2, 3], params: { min: 2 }, options: options)
         expect(search.query(Object.new)).to eq [3]
       end
 
-      it 'applies actions to params' do
-        actions = {
-          min: ->(scope, min) { scope.select { |v| v > min } },
-          max: ->(scope, max) { scope.select { |v| v < max } }
+      it 'applies options to params' do
+        options = {
+          'min' => ->(scope, min) { scope.select { |v| v > min } },
+          'max' => ->(scope, max) { scope.select { |v| v < max } }
         }
 
-        search = Search.new [1, 2, 3, 4, 5], { min: 2, max: 5 }, actions
+        search = described_class.new(scope: [1, 2, 3, 4, 5], params: { min: 2, max: 5 }, options: options)
         expect(search.query(Object.new)).to eq [3, 4]
       end
 
       it 'handles nil returned from action' do
-        actions = {
-          odd: ->(scope, odd) { scope.select(&:odd?) if odd }
+        options = {
+          'odd' => ->(scope, odd) { scope.select(&:odd?) if odd }
         }
 
-        search = Search.new [1, 2, 3, 4, 5], { odd: false }, actions
+        search = described_class.new(scope: [1, 2, 3, 4, 5], params: { odd: false }, options: options)
         expect(search.query(Object.new)).to eq [1, 2, 3, 4, 5]
       end
 
       it 'executes action in the passed context' do
-        actions = {
-          search: ->(scope, _) { scope.select { |v| v == target_value } }
+        options = {
+          'search' => ->(scope, _) { scope.select { |v| v == target_value } }
         }
 
         context = OpenStruct.new target_value: 2
 
-        search = Search.new [1, 2, 3, 4, 5], { search: true }, actions
+        search = described_class.new(scope: [1, 2, 3, 4, 5], params: { search: true }, options: options)
         expect(search.query(context)).to eq [2]
       end
     end
 
     describe '.count' do
       it 'counts the results of the query' do
-        actions = {
-          value: ->(scope, value) { scope.select { |v| v == value } }
+        options = {
+          'value' => ->(scope, value) { scope.select { |v| v == value } }
         }
 
-        search = Search.new [1, 2, 3], { value: 2 }, actions
+        search = described_class.new(scope: [1, 2, 3], params: { value: 2 }, options: options)
         expect(search.count(Object.new)).to eq 1
       end
     end

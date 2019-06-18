@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchObject
   module Plugin
     module Enum
@@ -34,7 +36,7 @@ module SearchObject
             return handle_invalid_value(object: object, option: option, enums: enums, scope: scope, value: value)
           end
 
-          object.send("apply_#{option}_with_#{Helper.underscore(value)}", scope)
+          object.send("apply_#{Helper.underscore(option)}_with_#{Helper.underscore(value)}", scope)
         end
 
         def handle_invalid_value(object:, option:, enums:, scope:, value:)

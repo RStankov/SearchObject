@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 module SearchObject
   module Base
     def self.included(base)
       base.extend ClassMethods
       base.instance_eval do
         @config = {
-          defaults:  {},
-          actions:   {},
-          scope:     nil
+          defaults: {},
+          options:  {}
         }
       end
     end
@@ -14,12 +15,15 @@ module SearchObject
     def initialize(options = {})
       config = self.class.config
       scope  = options[:scope] || (config[:scope] && instance_eval(&config[:scope]))
-      actions = config[:actions] || {}
-      params  = Helper.normalize_params(config[:defaults], options[:filters], actions.keys)
 
       raise MissingScopeError unless scope
 
-      @search = Search.new(scope, params, actions)
+      @search = Search.new(
+        scope: scope,
+        options: config[:options],
+        defaults: config[:defaults],
+        params: options[:filters]
+      )
     end
 
     def results
@@ -32,6 +36,12 @@ module SearchObject
 
     def count
       @count ||= @search.count self
+    end
+
+    def params=(params)
+      @count = nil
+      @results = nil
+      @search.params = params
     end
 
     def params(additions = {})
@@ -67,7 +77,7 @@ module SearchObject
         handler = options[:with] || block
 
         config[:defaults][name] = default unless default.nil?
-        config[:actions][name]  = Helper.normalize_search_handler(handler, name)
+        config[:options][name]  = Helper.normalize_search_handler(handler, name)
 
         define_method(name) { @search.param name }
       end

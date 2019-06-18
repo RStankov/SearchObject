@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchObject
   # :api: private
   module Helper
@@ -52,10 +54,6 @@ module SearchObject
       when Proc then handler
       else ->(scope, value) { scope.where name => value unless value.blank? }
       end
-    end
-
-    def normalize_params(defaults, filters, keys)
-      (defaults || {}).merge(slice_keys(stringify_keys(filters || {}), keys || []))
     end
 
     def deep_copy(object) # rubocop:disable Metrics/MethodLength

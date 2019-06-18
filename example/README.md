@@ -19,9 +19,9 @@ This is example application showing, one of the possible usages of ```SearchObje
 ```
 gem install bundler
 bundle install
-rake db:create
-rake db:migrate
-rake db:seed
+rails db:create
+rails db:migrate
+rails db:seed
 
 rails server
 ```
