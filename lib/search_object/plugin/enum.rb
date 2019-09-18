@@ -32,7 +32,7 @@ module SearchObject
         def apply_filter(object:, option:, enums:, scope:, value:)
           return if value.nil? || value == ''
 
-          unless enums.include? value
+          unless enums.include? value.to_s
             return handle_invalid_value(object: object, option: option, enums: enums, scope: scope, value: value)
           end
 
