@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_active_record'
 require 'kaminari'
 

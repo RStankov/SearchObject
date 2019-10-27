@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'spec_helper'
 require_relative 'support/paging_shared_example'
 require 'active_record'

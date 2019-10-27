@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostSearch
   include SearchObject.module(:model, :sorting, :will_paginate, :enum)
 

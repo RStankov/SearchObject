@@ -7,7 +7,7 @@ module SearchObject
       base.instance_eval do
         @config = {
           defaults: {},
-          options:  {}
+          options: {}
         }
       end
     end

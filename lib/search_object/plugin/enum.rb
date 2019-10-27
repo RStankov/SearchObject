@@ -32,9 +32,7 @@ module SearchObject
         def apply_filter(object:, option:, enums:, scope:, value:)
           return if value.nil? || value == ''
 
-          unless enums.include? value.to_s
-            return handle_invalid_value(object: object, option: option, enums: enums, scope: scope, value: value)
-          end
+          return handle_invalid_value(object: object, option: option, enums: enums, scope: scope, value: value) unless enums.include? value.to_s
 
           object.send("apply_#{Helper.underscore(option)}_with_#{Helper.underscore(value)}", scope)
         end
@@ -43,8 +41,7 @@ module SearchObject
           specific = "handle_invalid_#{option}"
           return object.send(specific, scope, value) if object.respond_to? specific, true
 
-          catch_all = 'handle_invalid_enum'
-          return object.send(catch_all, option, scope, value) if object.respond_to? catch_all, true
+          return object.handle_invalid_enum(option, scope, value) if object.respond_to? :handle_invalid_enum, true
 
           raise InvalidEnumValueError.new(option, enums, value)
         end

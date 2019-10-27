@@ -1,57 +1,61 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'ostruct'
 
 module SearchObject
   module Plugin
     describe Enum do
-      class TestSearch
-        include SearchObject.module(:enum)
+      let(:test_search) do
+        Class.new do
+          include SearchObject.module(:enum)
 
-        scope { [1, 2, 3, 4, 5] }
+          scope { [1, 2, 3, 4, 5] }
 
-        option :filter, enum: %w[odd even]
-        option :camelCase, enum: %w[someValue]
+          option :filter, enum: %w[odd even]
+          option :camelCase, enum: %w[someValue]
 
-        private
+          private
 
-        def apply_filter_with_odd(scope)
-          scope.select(&:odd?)
-        end
+          def apply_filter_with_odd(scope)
+            scope.select(&:odd?)
+          end
 
-        def apply_filter_with_even(scope)
-          scope.select(&:even?)
-        end
+          def apply_filter_with_even(scope)
+            scope.select(&:even?)
+          end
 
-        def apply_camel_case_with_some_value(_scope)
-          [1]
-        end
+          def apply_camel_case_with_some_value(_scope)
+            [1]
+          end
 
-        def handle_invalid_filter(_scope, value)
-          "invalid filter - #{value}"
+          def handle_invalid_filter(_scope, value)
+            "invalid filter - #{value}"
+          end
         end
       end
 
       it 'can filter by enum values' do
-        expect(TestSearch.results(filters: { filter: 'odd' })).to eq [1, 3, 5]
-        expect(TestSearch.results(filters: { filter: 'even' })).to eq [2, 4]
+        expect(test_search.results(filters: { filter: 'odd' })).to eq [1, 3, 5]
+        expect(test_search.results(filters: { filter: 'even' })).to eq [2, 4]
       end
 
       it 'converts input to string' do
-        expect(TestSearch.results(filters: { filter: :odd })).to eq [1, 3, 5]
-        expect(TestSearch.results(filters: { filter: :event })).to eq [2, 4]
+        expect(test_search.results(filters: { filter: :odd })).to eq [1, 3, 5]
+        expect(test_search.results(filters: { filter: :even })).to eq [2, 4]
       end
 
       it 'ignores blank values' do
-        expect(TestSearch.results(filters: { filter: nil })).to eq [1, 2, 3, 4, 5]
-        expect(TestSearch.results(filters: { filter: '' })).to eq [1, 2, 3, 4, 5]
+        expect(test_search.results(filters: { filter: nil })).to eq [1, 2, 3, 4, 5]
+        expect(test_search.results(filters: { filter: '' })).to eq [1, 2, 3, 4, 5]
       end
 
       it 'handles wrong enum values' do
-        expect(TestSearch.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
+        expect(test_search.results(filters: { filter: 'foo' })).to eq 'invalid filter - foo'
       end
 
       it 'underscores method and enum values' do
-        expect(TestSearch.results(filters: { camelCase: 'someValue' })).to eq [1]
+        expect(test_search.results(filters: { camelCase: 'someValue' })).to eq [1]
       end
 
       it 'raises when block is passed with enum option' do

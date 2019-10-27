@@ -1,4 +1,4 @@
-# rubocop:disable Lint/UselessAssignment:%s
+# frozen_string_literal: true
 
 require 'spec_helper'
 
@@ -11,11 +11,11 @@ describe PostSearch do
 
   def create(attributes = {})
     Post.create! attributes.reverse_merge(
-      user:           user,
-      title:          'Title',
-      body:           'Body',
-      category_name:  'Tech',
-      published:      true
+      user: user,
+      title: 'Title',
+      body: 'Body',
+      category_name: 'Tech',
+      published: true
     )
   end
 
@@ -24,29 +24,29 @@ describe PostSearch do
   end
 
   it 'can search by category name' do
-    post  = create category_name: 'Personal'
-    other = create category_name: 'Other'
+    post = create category_name: 'Personal'
+    _other = create category_name: 'Other'
 
     expect_search(category_name: 'Personal').to eq [post]
   end
 
   it 'can search by user_id' do
-    post  = create user: create_user
-    other = create user: create_user
+    post = create user: create_user
+    _other = create user: create_user
 
     expect_search(user_id: post.user_id).to eq [post]
   end
 
   it 'can search by title' do
-    post  = create title: 'Title'
-    other = create title: 'Other'
+    post = create title: 'Title'
+    _other = create title: 'Other'
 
     expect_search(title: 'itl').to eq [post]
   end
 
   it 'can search by published' do
-    post  = create published: true
-    other = create published: false
+    post = create published: true
+    _other = create published: false
 
     expect_search(published: true).to eq [post]
   end
@@ -54,21 +54,21 @@ describe PostSearch do
   it 'can search by term' do
     post_with_body  = create body: 'pattern'
     post_with_title = create title: 'pattern'
-    other           = create
+    _other = create
 
     expect_search(term: 'pattern').to eq [post_with_title, post_with_body]
   end
 
   it 'can search by created after' do
-    post  = create created_at: 1.month.ago
-    other = create created_at: 3.month.ago
+    post = create created_at: 1.month.ago
+    _other = create created_at: 3.month.ago
 
     expect_search(created_after: 2.month.ago.strftime('%Y-%m-%d')).to eq [post]
   end
 
   it 'can search by created before' do
-    post  = create created_at: 3.month.ago
-    other = create created_at: 1.month.ago
+    post = create created_at: 3.month.ago
+    _other = create created_at: 1.month.ago
 
     expect_search(created_before: 2.month.ago.strftime('%Y-%m-%d')).to eq [post]
   end

@@ -7,15 +7,15 @@ AllCops:
     - search_object.gemspec
 
 # Disables "Line is too long"
-LineLength:
+Metrics/LineLength:
   Enabled: false
 
 # Disables Module has too many lines
-ModuleLength:
+Metrics/ModuleLength:
   Enabled: false
 
 # Disables "Missing top-level class documentation comment"
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Disables "Use each_with_object instead of inject"
