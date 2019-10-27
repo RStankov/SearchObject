@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.2.3 (unreleased)
+## Version 1.2.3
 
 * __[fix]__ convert enum values to strings (@Postmodum37)
 
