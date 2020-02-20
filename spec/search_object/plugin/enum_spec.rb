@@ -58,24 +58,32 @@ module SearchObject
         expect(test_search.results(filters: { camelCase: 'someValue' })).to eq [1]
       end
 
-      it 'raises when block is passed with enum option' do
-        expect do
-          Class.new do
-            include SearchObject.module(:enum)
+      it 'can filter by passed block' do
+        block_search = Class.new do
+          include SearchObject.module(:enum)
 
-            option(:filter, enum: %w[a b]) { |_scope, _value| nil }
-          end
-        end.to raise_error Enum::BlockIgnoredError
+          scope { [1, 2, 3, 4, 5] }
+
+          option(:filter, enum: %w[odd even]) { |scope, value| scope.select(&:"#{value}?".to_sym) }
+        end
+        expect(block_search.results(filters: { filter: :odd })).to eq [1, 3, 5]
+        expect(block_search.results(filters: { filter: :even })).to eq [2, 4]
       end
 
-      it 'raises when :with is passed with enum option' do
-        expect do
-          Class.new do
-            include SearchObject.module(:enum)
+      it 'can filter by with option' do
+        with_search = Class.new do
+          include SearchObject.module(:enum)
 
-            option :filter, enum: %w[a b], with: :method_name
+          scope { [1, 2, 3, 4, 5] }
+
+          option(:filter, enum: %w[odd even], with: :filter)
+
+          def filter(scope, value)
+            scope.select(&:"#{value}?".to_sym)
           end
-        end.to raise_error Enum::WithIgnoredError
+        end
+        expect(with_search.results(filters: { filter: :odd })).to eq [1, 3, 5]
+        expect(with_search.results(filters: { filter: :even })).to eq [2, 4]
       end
     end
 

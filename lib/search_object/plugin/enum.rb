@@ -11,10 +11,7 @@ module SearchObject
         def option(name, options = nil, &block)
           return super unless options.is_a?(Hash) && options[:enum]
 
-          raise BlockIgnoredError if block
-          raise WithIgnoredError if options[:with]
-
-          handler = Handler.build(name, options[:enum])
+          handler = options[:with] || block || Handler.build(name, options[:enum])
 
           super(name, options, &handler)
         end
