@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.2.4
+
+* __[feature]__ Added `:with` and block support to enum @hschne
+
 ## Version 1.2.3
 
 * __[fix]__ convert enum values to strings (@Postmodum37)
