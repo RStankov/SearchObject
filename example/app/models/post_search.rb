@@ -3,7 +3,7 @@
 class PostSearch
   include SearchObject.module(:model, :sorting, :will_paginate, :enum)
 
-  scope { Post.all }
+  scope { Post.includes(:user).all }
 
   sort_by :id, :created_at, :views_count, :likes_count, :comments_count
 
@@ -20,11 +20,11 @@ class PostSearch
   option :rating, enum: %i[low high]
 
   option :title do |scope, value|
-    scope.where 'title LIKE ?', escape_search_term(value)
+    scope.where 'title LIKE ?', escape_search_term(value) if value.present?
   end
 
   option :published do |scope, value|
-    scope.where published: true if value.present?
+    scope.where published: true if value.present? && value != '0'
   end
 
   option :created_after do |scope, value|
@@ -40,7 +40,7 @@ class PostSearch
   private
 
   def apply_term(scope, value)
-    scope.where 'title LIKE :term OR body LIKE :term', term: escape_search_term(value)
+    scope.where 'title LIKE :term OR body LIKE :term', term: escape_search_term(value) if value.present?
   end
 
   def apply_rating_with_low(scope)
