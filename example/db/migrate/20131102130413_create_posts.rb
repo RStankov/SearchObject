@@ -9,7 +9,6 @@ class CreatePosts < ActiveRecord::Migration[4.2]
       t.integer :likes_count, null: false, default: 0
       t.integer :comments_count, null: false, default: 0
       t.boolean :published, null: false, default: false
-      t.datetime :published_at
       t.timestamps
     end
 
