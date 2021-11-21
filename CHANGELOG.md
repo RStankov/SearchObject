@@ -1,8 +1,12 @@
 # Changelog
 
+## Version 1.2.5
+
+* __[feature]__ Added `param?` method to `Search::Base` (@rstankov)
+
 ## Version 1.2.4
 
-* __[feature]__ Added `:with` and block support to enum @hschne
+* __[feature]__ Added `:with` and block support to enum (@hschne)
 
 ## Version 1.2.3
 

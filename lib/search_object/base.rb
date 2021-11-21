@@ -52,6 +52,16 @@ module SearchObject
       end
     end
 
+    def param?(*args)
+      if args.size == 1
+        params.key?(args[0].to_s)
+      elsif args.size == 2
+        params[args[0].to_s] == args[1]
+      else
+        raise ArgumentError, "wrong number of arguments (given #{args.size}, expected 1 or 2)"
+      end
+    end
+
     private
 
     def fetch_results

@@ -329,5 +329,44 @@ module SearchObject
         expect(search.params).to eq 'value' => 1
       end
     end
+
+    describe '#param?' do
+      context 'one argument' do
+        it 'returns true when params is set' do
+          search = new_search([], value: 2) do
+            option :value
+          end
+
+          expect(search.param?(:value)).to eq true
+        end
+
+        it 'returns false when params isnt set' do
+          search = new_search do
+            option :value
+          end
+
+          expect(search.param?(:value)).to eq false
+        end
+      end
+
+      context 'two arguments' do
+        it 'returns true when param matches value' do
+          search = new_search([], value: 2) do
+            option :value
+          end
+
+          expect(search.param?(:value, 2)).to eq true
+        end
+
+        it 'returns false when param matches value' do
+          search = new_search([], value: 2) do
+            option :value
+          end
+
+          expect(search.param?(:value, 3)).to eq false
+          expect(search.param?(:other, 3)).to eq false
+        end
+      end
+    end
   end
 end
