@@ -35,7 +35,7 @@ It is useful for:
     * [Using Instance Method for Straight Dispatch](#using-instance-method-for-straight-dispatch)
     * [Active Record Is Not Required](#active-record-is-not-required)
     * [Overwriting Methods](#overwriting-methods)
-    * [Extracting Basic Module](#extracting-basic-module#)
+    * [Extracting Basic Module](#extracting-basic-module)
 * [Contributing](#contributing)
 * [License](#license)
 
