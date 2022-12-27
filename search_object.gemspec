@@ -22,8 +22,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency 'rspec', '~> 3.5'
   spec.add_development_dependency 'rspec-mocks', '~> 3.5'
-  spec.add_development_dependency 'activerecord', '~> 5.0'
-  spec.add_development_dependency 'actionpack', '~> 5.0'
+  spec.add_development_dependency 'activerecord', '~> 6.0'
+  spec.add_development_dependency 'actionpack', '~> 6.0'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'will_paginate'

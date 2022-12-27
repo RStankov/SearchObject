@@ -13,7 +13,7 @@ module SearchObject
       end
 
       def sort?(attribute)
-        attribute == sort || sort.to_s.starts_with?("#{attribute} ")
+        attribute == sort || sort.to_s.start_with?("#{attribute} ")
       end
 
       def sort_attribute
