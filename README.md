@@ -1,6 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/search_object.svg)](http://badge.fury.io/rb/search_object)
 [![Code Climate](https://codeclimate.com/github/RStankov/SearchObject.svg)](https://codeclimate.com/github/RStankov/SearchObject)
-[![Build Status](https://secure.travis-ci.org/RStankov/SearchObject.svg)](http://travis-ci.org/RStankov/SearchObject)
 [![Code coverage](https://coveralls.io/repos/RStankov/SearchObject/badge.svg?branch=master)](https://coveralls.io/r/RStankov/SearchObject)
 
 # SearchObject
