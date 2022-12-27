@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'will_paginate'
   spec.add_development_dependency 'kaminari'
   spec.add_development_dependency 'kaminari-activerecord'
-  spec.add_development_dependency 'rubocop', '0.81.0'
-  spec.add_development_dependency 'rubocop-rspec', '1.38.1'
+  spec.add_development_dependency 'rubocop', '1.41.1'
+  spec.add_development_dependency 'rubocop-rspec', '2.16.0'
 end

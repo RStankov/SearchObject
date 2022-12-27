@@ -55,3 +55,15 @@ Style/HashTransformValues:
 
 RSpec/ContextWording:
   Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/CaseLikeIf:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false

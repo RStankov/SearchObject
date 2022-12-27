@@ -94,7 +94,7 @@ module SearchObject
           klass.new
         end
 
-        def call(object: nil, option: nil, enums: nil, scope: nil, value:)
+        def call(value:, object: nil, option: nil, enums: nil, scope: nil)
           described_class.apply_filter(
             object: object || new_object,
             option: option || 'option',
