@@ -6,6 +6,9 @@ AllCops:
     - example/config/**/*
     - search_object.gemspec
 
+  SuggestExtensions: false
+  NewCops: disable
+
 # Disables "Line is too long"
 Layout/LineLength:
   Enabled: false
@@ -45,9 +48,6 @@ Lint/StructNewOverride:
   Enabled: true
 
 Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
   Enabled: true
 
 Style/HashTransformValues:
