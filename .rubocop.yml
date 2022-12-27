@@ -52,3 +52,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+RSpec/ContextWording:
+  Enabled: false
