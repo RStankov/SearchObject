@@ -15,32 +15,6 @@ Uses:
 - [GraphQL](https://rmosolgo.github.io/graphql-ruby/) resolvers ([example](#graphql-plugin))
 - ... search objects 😀
 
-## Table of Contents
-
-* [Installation](#installation)
-* [Dependencies](#dependencies)
-* [Usage](#usage)
-  * [Example](#example)
-* [Plugins](#plugins)
-  * [Paginate Plugin](#paginate-plugin)
-  * [Enum Plugin](#enum-plugin)
-  * [Model Plugin](#model-plugin)
-  * [GraphQL Plugin](#graphql-plugin)
-  * [Sorting Plugin](#sorting-plugin)
-* [Tips & Tricks](#tips--tricks)
-    * [Results Shortcut](#results-shortcut)
-    * [Passing Scope as Argument](#passing-scope-as-argument)
-    * [Handling Nil Options](#handling-nil-options)
-    * [Default Option Block](#default-option-block)
-    * [Using Instance Method in Option Blocks](#using-instance-method-in-option-blocks)
-    * [Using Instance Method for Straight Dispatch](#using-instance-method-for-straight-dispatch)
-    * [Active Record Is Not Required](#active-record-is-not-required)
-    * [Overwriting Methods](#overwriting-methods)
-    * [Extracting Basic Module](#extracting-basic-module)
-* [Contributing](#contributing)
-* [License](#license)
-
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -412,20 +386,6 @@ class ProductSearch < BaseSearch
 end
 ```
 
-## Running tests
-
-Make sure all dependencies are installed with `bundle install`
-
-```
-rake
-```
-
-## Release
-
-```
-rake release
-```
-
 ## Contributing
 
 1. Fork it
@@ -439,7 +399,7 @@ rake release
 
 * **Radoslav Stankov** - *creator* - [RStankov](https://github.com/RStankov)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/RStankov/SearchObject/contributors) who participated in this project.
 
 ## License
 
