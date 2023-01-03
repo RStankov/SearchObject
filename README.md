@@ -4,13 +4,15 @@
 
 # SearchObject
 
-In many of my projects I needed an object that performs several fairly complicated queries. Most times I hand-coded them, but they would get complicated over time when other concerns like sorting, pagination and so are being added. So I decided to abstract this away and created ```SearchObject```, a DSL for creating such objects.
+DSL for building search objects.
 
-It is useful for:
+Search objects start with an initial collection (scope) and allow it to be filtered based on various options.
 
-- complicated search forms
-- api endpoints with multiple filter conditions
-- [GraphQL](https://rmosolgo.github.io/graphql-ruby/) resolvers
+Uses:
+
+- complicated search forms ([example](blob/master/example/app/models/post_search.rb))
+- API endpoints with multiple filter conditions
+- [GraphQL](https://rmosolgo.github.io/graphql-ruby/) resolvers ([example](#graphql-plugin))
 - ... search objects 😀
 
 ## Table of Contents
@@ -54,6 +56,11 @@ And then execute:
 Or install it yourself as:
 
     $ gem install search_object
+
+
+## Changelog
+
+Changes are available in [CHANGELOG.md](https://github.com/RStankov/SearchObject/blob/master/CHANGELOG.md)
 
 ## Usage
 
@@ -405,6 +412,20 @@ class ProductSearch < BaseSearch
 end
 ```
 
+## Running tests
+
+Make sure all dependencies are installed with `bundle install`
+
+```
+rake
+```
+
+## Release
+
+```
+rake release
+```
+
 ## Contributing
 
 1. Fork it
@@ -413,6 +434,12 @@ end
 4. Push to the branch (`git push origin my-new-feature`)
 5. Run the tests (`rake`)
 6. Create new Pull Request
+
+## Authors
+
+* **Radoslav Stankov** - *creator* - [RStankov](https://github.com/RStankov)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
