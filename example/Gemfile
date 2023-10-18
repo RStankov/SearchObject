@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '6.0.2.1'
+gem 'rails', '6.1.5'
 
 gem 'bootstrap-sass'
 gem 'jquery-rails'
@@ -10,5 +10,6 @@ gem 'rspec-rails'
 gem 'sass-rails', '~> 5.0.0'
 gem 'slim'
 gem 'sqlite3'
+gem 'webrick', '~> 1.8'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
