@@ -10,7 +10,7 @@ Search objects start with an initial collection (scope) and allow it to be filte
 
 Uses:
 
-- complicated search forms ([example](blob/master/example/app/models/post_search.rb))
+- complicated search forms ([example](./example/app/models/post_search.rb))
 - API endpoints with multiple filter conditions
 - [GraphQL](https://rmosolgo.github.io/graphql-ruby/) resolvers ([example](#graphql-plugin))
 - ... search objects 😀
@@ -34,7 +34,7 @@ Or install it yourself as:
 
 ## Changelog
 
-Changes are available in [CHANGELOG.md](https://github.com/RStankov/SearchObject/blob/master/CHANGELOG.md)
+Changes are available in [CHANGELOG.md](./CHANGELOG.md)
 
 ## Usage
 
@@ -74,7 +74,7 @@ search.params opened: false        # => overwrites the 'opened' option
 
 ### Example
 
-You can find example of most important features and plugins - [here](https://github.com/RStankov/SearchObject/tree/master/example).
+You can find example of most important features and plugins - [here](./example).
 
 ## Plugins
 
@@ -399,8 +399,8 @@ end
 
 * **Radoslav Stankov** - *creator* - [RStankov](https://github.com/RStankov)
 
-See also the list of [contributors](https://github.com/RStankov/SearchObject/contributors) who participated in this project.
+See also the list of [contributors](./contributors) who participated in this project.
 
 ## License
 
-**[MIT License](https://github.com/RStankov/SearchObject/blob/master/LICENSE.txt)**
+**[MIT License](./LICENSE.txt)**
