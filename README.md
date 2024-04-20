@@ -44,7 +44,6 @@ Just include the ```SearchObject.module``` and define your search options:
 class PostSearch
   include SearchObject.module
 
-  # Use .all (Rails4) or .scoped (Rails3) for ActiveRecord objects
   scope { Post.all }
 
   option(:name)             { |scope, value| scope.where name: value }
